@@ -155,7 +155,7 @@ public class OperacionEsperaPrim
 
     
     
-    public static boolean insertarOperacion(int id, String emailOferente, String emailIntermediario, int nitValor, String nomValor, double precioUnidad, int cantidad, Date fecha) {
+    public static boolean insertarOperacion(int id, String emailOferente, String emailIntermediario, long nitValor, String nomValor, double precioUnidad, int cantidad, Integer idSolicitud) {
         conexionDB x = new conexionDB();
          String consulta="INSERT INTO OPERACIONES_EN_ESPERA_PRIM VALUES("
                                     +id 
@@ -165,7 +165,8 @@ public class OperacionEsperaPrim
                                     + ",'" +nomValor
                                     +"',"+precioUnidad
                                     +","+cantidad
-                                    +",(SELECT SYSDATE FROM DUAL))"
+                                    +",(SELECT SYSDATE FROM DUAL), "
+                                    + idSolicitud+")"
                                     ;
        return x.actualizarCrear(consulta);
     }

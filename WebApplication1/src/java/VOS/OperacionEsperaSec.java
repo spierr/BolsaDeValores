@@ -171,8 +171,8 @@ public class OperacionEsperaSec
     
     
     public static boolean insertarOperacion(int id, String emailInver, 
-            String emailIntermediario, int nitValor, String nomValor, 
-            double precioUnidad, int cantidad, Date fecha, String tipoOperacion, String precio) {
+            String emailIntermediario, long nitValor, String nomValor, 
+            double precioUnidad, int cantidad, String tipoOperacion, Integer idSolicitud) {
         conexionDB x = new conexionDB();
          String consulta="INSERT INTO OPERACIONES_EN_ESPERA_SEC VALUES("
                                     +id 
@@ -182,9 +182,9 @@ public class OperacionEsperaSec
                                     +",'"+tipoOperacion
                                     +"',"+precioUnidad
                                     +","+cantidad
-                                    +","+fecha
+                                    +",(SELECT SYSDATE FROM DUAL)"
                                     +",'"+emailIntermediario
-                                    +"',"+precio
+                                    +"',"+idSolicitud+")"
                                     ;
        return x.actualizarCrear(consulta);
     }
