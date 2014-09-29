@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!-- 
+Universidad de los Andes (Bogotá - Colombia)
+Departamento de Ingeniería de Sistemas y Computación 
+Licenciado bajo el esquema Academic Free License version 2.1 
+
+Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
+Ejercicio: n18_colegioWeb
+Autor: Pablo Barvo - 08-Feb-2006 
+-->
+
+<!DOCTYPE web-app PUBLIC
+   "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+   "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+    <description>Servlets Cupicolegio</description>
+   
+   <!-- SERVLETS -->
+
+ <servlet>
+  <servlet-name>hola</servlet-name>
+  <servlet-class>Servlets.pacho</servlet-class>
+ </servlet>
+ 
+ <servlet>
+  <servlet-name>ServletOrdenarOperacionBursatil</servlet-name>
+  <servlet-class>Servlets.ServletOrdenarOperacionBursatil</servlet-class>
+ </servlet>
+ 
+ <servlet>
+  <servlet-name>ServletCancelarOrdenOperacionBursatil</servlet-name>
+  <servlet-class>Servlets.ServletCancelarOrdenOperacionBursatil</servlet-class>
+ </servlet>
+ 
+ <servlet>
+  <servlet-name>ServletRegistrarOperacionBursatil</servlet-name>
+  <servlet-class>Servlets.ServletRegistrarOperacionBursatil</servlet-class>
+ </servlet>
+ 
+  <servlet>
+  <servlet-name>ServletRegistrarTipoDeValor</servlet-name>
+  <servlet-class>Servlets.ServletRegistrarTipoDeValor</servlet-class>
+ </servlet>
+ 
+  <servlet>
+  <servlet-name>ServletRegistrarTipoRentabilidad</servlet-name>
+  <servlet-class>Servlets.ServletRegistrarTipoRentabilidad</servlet-class>
+ </servlet>
+ 
+ <servlet>
+  <servlet-name>ServletEliminaOrden</servlet-name>
+  <servlet-class>Servlets.ServletEliminaOrden</servlet-class>
+ </servlet>
+ 
+ <servlet>
+  <servlet-name>ServletRegistrarOrden</servlet-name>
+  <servlet-class>Servlets.ServletRegistrarOrden</servlet-class>
+ </servlet>
+ 
+  <servlet>
+  <servlet-name>ServletConsultarExistenciaValor</servlet-name>
+  <servlet-class>Servlets.ServletConsultarExistenciaValor</servlet-class>
+ </servlet>
+ 
+  <servlet>
+  <servlet-name>ServletFiltrarUsuario</servlet-name>
+  <servlet-class>Servlets.ServletFiltrarUsuario</servlet-class>
+ </servlet>
+ 
+ 
+ 
+ 
+ <!-- MAPPING -->
+ 
+ <servlet-mapping>
+  <servlet-name>hola</servlet-name>
+  <url-pattern>/hola.htm</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>ServletOrdenarOperacionBursatil</servlet-name>
+  <url-pattern>/ServletOrdenarOperacionBursatil.htm</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>ServletCancelarOrdenOperacionBursatil</servlet-name>
+  <url-pattern>/ServletCancelarOrdenOperacionBursatil.htm</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>ServletRegistrarOperacionBursatil</servlet-name>
+  <url-pattern>/ServletRegistrarOperacionBursatil.htm</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>ServletRegistrarTipoDeValor</servlet-name>
+  <url-pattern>/ServletRegistrarTipoDeValor.htm</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>ServletRegistrarTipoRentabilidad</servlet-name>
+  <url-pattern>/ServletRegistrarTipoRentabilidad.htm</url-pattern>
+ </servlet-mapping>
+ 
+ <servlet-mapping>
+  <servlet-name>ServletEliminaOrden</servlet-name>
+  <url-pattern>/ServletEliminaOrden.htm</url-pattern>
+ </servlet-mapping>
+ 
+ <servlet-mapping>
+  <servlet-name>ServletRegistrarOrden</servlet-name>
+  <url-pattern>/ServletRegistrarOrden.htm</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>ServletConsultarExistenciaValor</servlet-name>
+  <url-pattern>/ServletConsultarExistenciaValor.htm</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet-mapping>
+  <servlet-name>ServletFiltrarUsuario</servlet-name>
+  <url-pattern>/ServletFiltrarUsuario.htm</url-pattern>
+ </servlet-mapping>
+ 
+
+ 
+	
+   
+</web-app>
