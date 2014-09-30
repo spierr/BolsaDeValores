@@ -9,6 +9,7 @@ import Fachada.conexionDB;
 import VOS.OperacionEsperaPrim;
 import VOS.OperacionEsperaSec;
 import VOS.OperacionRegPrim;
+import VOS.SolicitudCompra;
 import VOS.TipoDeValor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,11 +38,10 @@ public class TestTest {
     }
 
     @Test
-    
     public void testOperacionesEnsperaPrim() {
+        System.out.println("prueba1-1");
         try {
-            // TODO review the generated test code and remove the default call to fail.
-            System.out.println("prueba1-1");
+            // TODO review the generated test code and remove the default call to fail.           
             conexionDB x = new conexionDB();          
             ResultSet maximoid= x.consultar("SELECT MAX (ID) FROM  OPERACIONES_EN_ESPERA_PRIM ");    
             int nuevoid=0;
@@ -65,10 +65,11 @@ public class TestTest {
             Logger.getLogger(TestTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    @Test
     public void testOperacionesEnsperaSec() {
         try {
             // TODO review the generated test code and remove the default call to fail.
-            System.out.println("prueba1-1");
+            System.out.println("prueba1-2");
             conexionDB x = new conexionDB();
             
             ResultSet maximoid= x.consultar("SELECT MAX (ID) FROM  OPERACIONES_EN_ESPERA_SEC ");
@@ -95,6 +96,7 @@ public class TestTest {
             Logger.getLogger(TestTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    @Test
     public void testOperacionRegPrim()    {
          int id=0;
          try {
@@ -107,17 +109,18 @@ public class TestTest {
         } catch (Exception e) {
         }
             assertNotSame("Error obtebiendo id", id, 0);
-            String emailOferente = "";
-            String emailIntermediario = "";
-            String nomValor = "";
-            long nitValor = 764567456;
-            double precioUnidad = 31231;
+            String emailOferente = "lweb@clickbank.net";
+            String emailIntermediario = "hchavez6@bbc.co.uk";
+            String nomValor = "Accion";
+            long nitValor = Long.parseLong("8656441914");
+            double precioUnidad = 123;
             int cantidad = 321;
             Integer idSolicitud=null;
         assertTrue(OperacionEsperaPrim.insertarOperacion(id, emailOferente, emailIntermediario, nitValor, nomValor, precioUnidad, cantidad, idSolicitud));
         assertFalse(OperacionEsperaPrim.insertarOperacion(id, emailOferente, emailIntermediario, nitValor, nomValor, precioUnidad, cantidad, idSolicitud));
         assertTrue(OperacionEsperaPrim.eliminarOperacion(id));
     }
+    @Test
     public void testOperacionRegSec()    {
          int id=0;
          try {
@@ -143,12 +146,35 @@ public class TestTest {
         assertTrue(OperacionEsperaPrim.eliminarOperacion(id));
         
     }
+    @Test
     public void testSolicitudPrim()    {
-        
+            String emailIntCom = "";
+            String emailCom = "";
+            String emailIntVen = "";
+            String emailVen = "";
+            String nomValor = "";
+            long nit = 764567456;
+            double precioUnitario = 31231;
+            int cantidad = 321;
+            Integer id=null;
+            String tipoDeValor= "VENTA";
+        SolicitudCompra.insertarSolicitudPrimaria(id,nomValor, nit, cantidad, precioUnitario, emailIntCom, emailCom, emailIntVen, emailVen);
     }
+    @Test
     public void testSolicitudSec()    {
-        
+         String emailIntCom = "";
+            String emailCom = "";
+            String emailIntVen = "";
+            String emailVen = "";
+            String nomValor = "";
+            long nit = 764567456;
+            double precioUnitario = 31231;
+            int cantidad = 321;
+            Integer id=null;
+            String tipoDeValor= "VENTA";
+        SolicitudCompra.insertarSolicitudPrimaria(id,nomValor, nit, cantidad, precioUnitario, emailIntCom, emailCom, emailIntVen, emailVen);
     }
+    @Test
     public void testValoresDeInversionistas()    {
         
     }

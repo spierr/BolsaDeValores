@@ -577,7 +577,7 @@ public class ServletRegistrarOrden extends  HttpServlet{
         try {
             OperacionEsperaPrim vendedor =new OperacionEsperaPrim(idVenta);
             OperacionEsperaSec comprador=  new OperacionEsperaSec(idCompra);
-            int id =SolicitudCompra.insertarSolicitudPrimaria(comprador.getNomValor(),vendedor.getNitValor(),comprador.getCantidad(),vendedor.getPrecioUnidad(),
+            int id =SolicitudCompra.insertarSolicitudPrimaria(null, comprador.getNomValor(),vendedor.getNitValor(),comprador.getCantidad(),vendedor.getPrecioUnidad(),
                 comprador.getEmailIntermediario(), comprador.getEmailInversionista(), vendedor.getEmailIntermediario()
                 ,vendedor.getEmailOferente());
             
@@ -614,7 +614,7 @@ public class ServletRegistrarOrden extends  HttpServlet{
             try {
             OperacionEsperaSec vendedor =new OperacionEsperaSec(idVenta);
             OperacionEsperaSec comprador=  new OperacionEsperaSec(idCompra);
-            int id =SolicitudCompra.insertarSolicitudSecundaria (comprador.getNomValor(),vendedor.getNitValor(),comprador.getCantidad(),vendedor.getPrecioUnidad(),
+            int id =SolicitudCompra.insertarSolicitudSecundaria (null, comprador.getNomValor(),vendedor.getNitValor(),comprador.getCantidad(),vendedor.getPrecioUnidad(),
                 comprador.getEmailIntermediario(), comprador.getEmailInversionista(), vendedor.getEmailIntermediario()
                 ,vendedor.getEmailInversionista());
              if(id!=-1&&comprador.setSolicitud(""+id)&&vendedor.setSolicitud(id+""))

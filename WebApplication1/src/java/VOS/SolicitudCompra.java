@@ -138,7 +138,7 @@ public class SolicitudCompra
         
     }
 
-    public static int insertarSolicitudPrimaria( String nombreValor, long nit, int cantidad, 
+    public static int insertarSolicitudPrimaria(Integer idp, String nombreValor, long nit, int cantidad, 
             double precioUnitario, String emailIntCom , String emailCom, String emailIntVen,
             String emailVen )
     {
@@ -158,6 +158,11 @@ public class SolicitudCompra
             return -1;
         }
         
+        if (idp!=null){
+            nuevoid=idp;
+        }
+            
+        
         boolean res= x.actualizarCrear("INSERT INTO SOLICITUDES_COMPRA_PRIM"
          + " VALUES ("+nuevoid+", '"+nombreValor+"', "+nit+", "+cantidad+", "+precioUnitario+", '"
                 +emailIntCom+"','"+emailCom+"','"+emailIntVen+"','"+emailVen+"', (SELECT SYSDATE FROM DUAL))");
@@ -169,7 +174,7 @@ public class SolicitudCompra
             return -1;
     } 
     
-    public static int insertarSolicitudSecundaria( String nombreValor, long nit, int cantidad, 
+    public static int insertarSolicitudSecundaria(Integer idp, String nombreValor, long nit, int cantidad, 
             double precioUnitario, String emailIntCom , String emailCom, String emailIntVen,
             String emailVen )
     {
@@ -187,6 +192,9 @@ public class SolicitudCompra
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
+        }
+         if (idp!=null){
+            nuevoid=idp;
         }
         boolean res= x.actualizarCrear("INSERT INTO SOLICITUDES_COMPRA_SEC"
          + " VALUES ("+nuevoid+", '"+nombreValor+"', "+nit+", "+cantidad+", "+precioUnitario+", '"
