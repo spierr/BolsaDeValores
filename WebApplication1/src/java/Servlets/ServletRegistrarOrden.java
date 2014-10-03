@@ -380,13 +380,13 @@ public class ServletRegistrarOrden extends  HttpServlet{
             int vender =vendedor.getCantidad();
             int comprar= comprador.getCantidad();
             
-            if(vender>comprar)
+            if(vender<comprar)
             {
                   respuesta.write( "           <div class=\"panel panel-primary\">\r\n" );
                                 respuesta.write( "            <div class=\"panel-body\">\r\n" );
                                 respuesta.write( "              Error\r\n" );
                                 respuesta.write( "            </div>\r\n" );
-                                respuesta.write( "            <div class=\"panel-footer\">No se puede realizar la transaccion, intente nuevamente</div>\r\n" );
+                                respuesta.write( "            <div class=\"panel-footer\">No se puede realizar la transaccion, intente nuevamente vender es mayour</div>\r\n" );
                                 respuesta.write( "          </div>\r\n" );   
 
             }
@@ -493,7 +493,7 @@ public class ServletRegistrarOrden extends  HttpServlet{
             int vender =vendedor.getCantidad();
             int comprar= comprador.getCantidad();
             
-            if(vender>comprar)
+            if(vender<comprar)
             {
                   respuesta.write( "           <div class=\"panel panel-primary\">\r\n" );
                                 respuesta.write( "            <div class=\"panel-body\">\r\n" );
@@ -599,6 +599,7 @@ public class ServletRegistrarOrden extends  HttpServlet{
                                 respuesta.write( "              Orden fallida\r\n" );
                                 respuesta.write( "            </div>\r\n" );
                                 respuesta.write( "            <div class=\"panel-footer\">La solicitud no se ingreso al sistema</div>\r\n" );
+                                respuesta.write( "            <div class=\"panel-footer\">Id"+id+" comprador set sol "+comprador.setSolicitud(""+id)+" vendesdro set sol"+vendedor.setSolicitud(id)+" </div>\r\n" );
                                 respuesta.write( "          </div>\r\n" );   
             }
                 
@@ -634,7 +635,7 @@ public class ServletRegistrarOrden extends  HttpServlet{
                                 respuesta.write( "            <div class=\"panel-body\">\r\n" );
                                 respuesta.write( "              Orden fallida\r\n" );
                                 respuesta.write( "            </div>\r\n" );
-                                respuesta.write( "            <div class=\"panel-footer\">La solicitud no se ingreso al sistema</div>\r\n" );
+                                respuesta.write( "            <div class=\"panel-footer\">La solicitud no se ingreso al sistema err en set solid "+id+"</div>\r\n" );
                                 respuesta.write( "          </div>\r\n" );   
             }
                 
