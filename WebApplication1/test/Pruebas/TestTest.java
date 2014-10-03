@@ -69,7 +69,6 @@ public class TestTest {
     public void testOperacionesEnsperaSec() {
         try {
             // TODO review the generated test code and remove the default call to fail.
-            System.out.println("prueba1-2");
             conexionDB x = new conexionDB();
             
             ResultSet maximoid= x.consultar("SELECT MAX (ID) FROM  OPERACIONES_EN_ESPERA_SEC ");

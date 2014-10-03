@@ -525,4 +525,58 @@ public class Consultas {
         }
          return resp;
      }
+     
+      public static ResultSet bono(conexionDB x)
+    {
+         ResultSet r =  x.consultar("SELECT NIT_VALOR , NOM_VALOR , veces\n" +
+"FROM(\n" +
+"select nit_valor , nom_valor, count(*) as veces\n" +
+"from(\n" +
+"select nit_valor , NOM_VALOR \n" +
+"from OPERACIONES_EN_ESPERA_PRIM \n" +
+"union all (\n" +
+"select nit_valor , nom_valor\n" +
+"from OPERACIONES_EN_ESPERA_SEC )\n" +
+"union all(\n" +
+"select nit_valor , nom_valor\n" +
+"from OPERACIONES_REGISTRADAS_PRIM\n" +
+"\n" +
+")\n" +
+"union all(\n" +
+"select nit_valor , nom_valor\n" +
+"from OPERACIONES_REGISTRADAS_SEC\n" +
+"\n" +
+")\n" +
+")\n" +
+"group by (nit_valor,nom_valor)\n" +
+")\n" +
+"\n" +
+"WHERE VECES=(\n" +
+"SELECT MAX(VECES)FROM(\n" +
+"select nit_valor , nom_valor, count(*) as veces\n" +
+"from(\n" +
+"select nit_valor , NOM_VALOR \n" +
+"from OPERACIONES_EN_ESPERA_PRIM \n" +
+"union all (\n" +
+"select nit_valor , nom_valor\n" +
+"from OPERACIONES_EN_ESPERA_SEC )\n" +
+"union all(\n" +
+"select nit_valor , nom_valor\n" +
+"from OPERACIONES_REGISTRADAS_PRIM\n" +
+"\n" +
+")\n" +
+"union all(\n" +
+"select nit_valor , nom_valor\n" +
+"from OPERACIONES_REGISTRADAS_SEC\n" +
+"\n" +
+")\n" +
+")\n" +
+"group by (nit_valor,nom_valor)\n" +
+")\n" +
+")");
+              return r;
+    }
+
+
+
 }
