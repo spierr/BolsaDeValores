@@ -135,7 +135,7 @@ respuesta.write( "          <h3 class=\"sub-header\">Inversionitas</h3>\r\n" );
 respuesta.write( "          <div class=\"table-responsive\">\r\n" );
 respuesta.write( "              \r\n" );
  respuesta.write( "                <select class=\"form-control\" name=\"Inversionistas\" >\r\n" );
-                                    respuesta.write( "           <option value=\"\" disabled selected>Seleccione el tipo de valor a filtrar</option>\r\n" );
+                                    respuesta.write( "           <option value=\"\" disabled selected>Seleccione el Inversionista</option>\r\n" );
 
  try {
                               String sentancia="select * from INVERSIONISTA";
@@ -184,10 +184,29 @@ respuesta.write( "          <h3 class=\"sub-header\">Intermediario</h3>\r\n" );
 
 respuesta.write( "          <div class=\"table-responsive\">\r\n" );
 respuesta.write( "                <select class=\"form-control\" name=\"tipoUsuario\" >\r\n" );
-respuesta.write( "           <option value=\"\" disabled selected>Seleccione el tipo de valor a filtrar</option>\r\n" );
-respuesta.write( "          <option value=\"Inversionita\" >Inversionita</option>\r\n" );
-respuesta.write( "          <option value=\"Oferente\">Oferente</option>\r\n" );
-respuesta.write( "          <option value=\"Intermediario\">Intermediario</option>\r\n" );
+respuesta.write( "           <option value=\"\" disabled selected>Seleccione el Intermediario</option>\r\n" );
+ try {
+                              String sentancia="select * from INTERMEDIARIO";
+                              ResultSet rta = x.consultar(sentancia);
+                              
+                              while(rta.next())
+                              {
+                                 
+
+                                    respuesta.write( "          <option value=\""+rta.getString("EMAIL")+"\" >"+rta.getString("EMAIL")+"</option>\r\n" );
+                                 
+                                    respuesta.write( "       \r\n" );
+                              }
+                             
+                              
+                              
+                              
+                             
+                              rta.close();
+                          } catch (SQLException ex) {
+                              Logger.getLogger(ServletCancelarOrdenOperacionBursatil.class.getName()).log(Level.SEVERE, null, ex);
+                          }
+
 respuesta.write( "       \r\n" );
 respuesta.write( "        </select>\r\n" );
 respuesta.write( "              \r\n" );

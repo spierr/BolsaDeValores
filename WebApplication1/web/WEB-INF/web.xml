@@ -69,6 +69,11 @@ Autor: Pablo Barvo - 08-Feb-2006
   <servlet-class>Servlets.ServletFiltrarUsuario</servlet-class>
  </servlet>
  
+ <servlet>
+  <servlet-name>ServletPortafolios</servlet-name>
+  <servlet-class>Servlets.ServletPortafolios</servlet-class>
+ </servlet>
+ 
  
  
  
@@ -122,6 +127,11 @@ Autor: Pablo Barvo - 08-Feb-2006
   <servlet-mapping>
   <servlet-name>ServletFiltrarUsuario</servlet-name>
   <url-pattern>/ServletFiltrarUsuario.htm</url-pattern>
+ </servlet-mapping>
+ 
+ <servlet-mapping>
+  <servlet-name>ServletPortafolios</servlet-name>
+  <url-pattern>/portafolios.htm</url-pattern>
  </servlet-mapping>
  
 
