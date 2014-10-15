@@ -92,7 +92,7 @@
           
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Cancelar operación bursátil</h1>
+          <h1 class="page-header">Consultas</h1>
 
           
 
@@ -106,15 +106,77 @@
     <script src="./Dashboard Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
   
      <form role="form" action="ServletCancelarOrdenOperacionBursatil.htm" method="post">
-    
+         <br>
+      <h2>Visualizar Intermediarios</h2>
+      <br>
     <div class="form-group">
-    <label for="ejemplo_email_1">Email</label>
-    <input type="email" class="form-control" id="email" name="email"
-           placeholder="Introduce tu email">
+   
      </div>
     <div class="form-group">
-    <label for="ejemplo_email_1">Tipo de operacion bursatil</label>
-    <select class="form-control" name="tipoOperacion" >
+    <label for="ejemplo_email_1">Intermediarios</label>
+    <select class="form-control" name="Intermediario" >
+           <option value="" disabled selected>Seleccione el tipo de operacion bursatil</option>
+          <option value="primario" >Mercado Primario</option>
+          <option value="secundario">Mercado Secundario</option>
+         
+        </select>
+  </div>           
+  
+     <button type="submit" class="btn btn-default">Buscar</button>
+     
+    </form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     <form role="form" action="ServletCancelarOrdenOperacionBursatil.htm" method="post">
+         <br>
+      <h2>Visualizar Oferentes</h2>
+      <br>
+    <div class="form-group">
+    
+     </div>
+    <div class="form-group">
+    <label for="ejemplo_email_1">Oferentes</label>
+    <select class="form-control" name="Oferente" >
+           <option value="" disabled selected>Seleccione el tipo de operacion bursatil</option>
+          <option value="primario" >Mercado Primario</option>
+          <option value="secundario">Mercado Secundario</option>
+         
+        </select>
+  </div>           
+  
+     <button type="submit" class="btn btn-default">Buscar</button>
+     
+    </form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     <form role="form" action="ServletCancelarOrdenOperacionBursatil.htm" method="post">
+         <br>
+      <h2>Visualizar Inversionistas</h2>
+      <br>
+    <div class="form-group">
+  
+     </div>
+    <div class="form-group">
+    <label for="ejemplo_email_1">Inversionistas</label>
+    <select class="form-control" name="Inversionista" >
            <option value="" disabled selected>Seleccione el tipo de operacion bursatil</option>
           <option value="primario" >Mercado Primario</option>
           <option value="secundario">Mercado Secundario</option>
