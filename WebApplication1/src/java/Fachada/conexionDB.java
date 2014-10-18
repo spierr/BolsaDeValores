@@ -33,6 +33,19 @@ public class conexionDB {
             //Este metodo hace la conexion a la base de dato
             // conexion = conexion
             
+            public void commit() throws SQLException
+            {
+                conexion.commit();
+            }
+             public void setAutoCommit(boolean valor)
+            {
+        try {
+            conexion.setAutoCommit(valor);
+        } catch (SQLException ex) {
+            Logger.getLogger(conexionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            }
+            
             private  Connection conexion()
             {
 
