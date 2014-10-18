@@ -74,7 +74,10 @@ Autor: Pablo Barvo - 08-Feb-2006
   <servlet-class>Servlets.ServletPortafolios</servlet-class>
  </servlet>
  
- 
+ <servlet>
+  <servlet-name>ServletHTMLConsultas</servlet-name>
+  <servlet-class>Servlets.ServletHTMLConsultasIT3</servlet-class>
+ </servlet> 
  
  
  <!-- MAPPING -->
@@ -134,7 +137,11 @@ Autor: Pablo Barvo - 08-Feb-2006
   <url-pattern>/portafolios.htm</url-pattern>
  </servlet-mapping>
  
-
+  <servlet-mapping>
+  <servlet-name>ServletHTMLConsultas</servlet-name>
+  <url-pattern>/consultasIte3.htm</url-pattern>
+ </servlet-mapping>
+ 
  
 	
    
