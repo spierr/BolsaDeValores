@@ -416,6 +416,7 @@ public class Consultas {
              }
      
      
+     
      public static ArrayList consultarOperacionesEnEsperaPorSolucitud(conexionDB x, String email)   throws SQLException      
     {
        ResultSet r= x.consultar("SELECT * FROM SOLICITUDES_COMPRA_SEC WHERE EMAIL_INT_VEN ='"+email+"'");
@@ -434,7 +435,13 @@ public class Consultas {
         return res;
     }
 
-    
+   public static ResultSet buscarValoresDeInversionistas(conexionDB x,String inversionista) {
+              ResultSet r = x.consultar("select * from VALORES_DE_INVERSIONISTAS , PORTAFOLIOS where PORTAFOLIOS.ID=VALORES_DE_INVERSIONISTAS.ID_PORTAFOLIO AND VALORES_DE_INVERSIONISTAS.EMAIL='"+inversionista+"'" );
+              
+              
+              return r;
+               
+    }
 
     public static ResultSet buscarVentasCompatiblesPrecioNullPrim(conexionDB x,OperacionEsperaSec o) {
               ResultSet r = x.consultar("SELECT * \n" +
@@ -464,6 +471,9 @@ public class Consultas {
     
               return r;
     }
+    
+    
+    
 
     public static ResultSet buscarVentasCompatiblesCantidadNullSec(conexionDB x,OperacionEsperaSec o) {
           ResultSet r =  x.consultar("SELECT * \n" +
@@ -474,6 +484,37 @@ public class Consultas {
               return r;
     }
   
+     public static ResultSet buscarIntermediariosPortafolio(conexionDB x,String tipoPortafolio , String emailIntermediario) {
+          ResultSet r =  x.consultar("select EMAIL_INTERMEDIARIO AS MAIL,OPERACIONES_EN_ESPERA_PRIM.NOM_VALOR AS VALOR,NIT_VALOR AS NIT,PORTAFOLIOS.TIPO_PORTAFOLIO AS PORTA from OPERACIONES_EN_ESPERA_PRIM,PORTAFOLIOS where OPERACIONES_EN_ESPERA_PRIM.PORTAFOLIO=PORTAFOLIOS.id and TIPO_PORTAFOLIO='"+tipoPortafolio+"' AND  EMAIL_INTERMEDIARIO='"+emailIntermediario+"' UNION ALL\n" +
+"(SELECT EMAIL_INTER AS MAIL , OPERACIONES_EN_ESPERA_SEC.NOM_VALOR AS VALOR ,NIT_VALOR AS NIT , TIPO_PORTAFOLIO AS PORTA FROM  OPERACIONES_EN_ESPERA_SEC,PORTAFOLIOS where OPERACIONES_EN_ESPERA_SEC.PORTAFOLIO=PORTAFOLIOS.id and TIPO_PORTAFOLIO='"+tipoPortafolio+"' AND  EMAIL_INTER='"+emailIntermediario+"')");
+              return r;
+    }
+    
+     
+      public static ResultSet buscarIntermediariosValoresEnNegociasion(conexionDB x, String emailIntermediario) {
+          ResultSet r =  x.consultar("select *  from SOLICITUDES_COMPRA_PRIM where( EMAIL_INT_COM='"+emailIntermediario+"' or EMAIL_INT_VEN='"+emailIntermediario+"' ) union all\n" +
+"(select *  from SOLICITUDES_COMPRA_SEC where( EMAIL_INT_COM='"+emailIntermediario+"' or EMAIL_INT_VEN='"+emailIntermediario+"' ))");
+              return r;
+    }
+     
+      
+      public static ResultSet buscarInversionistasDeIntermediario(conexionDB x,String emailIntermediario) {
+         ResultSet r = x.consultar("SELECT VECES , NOMBRE , NACIONALIDAD FROM (SELECT VECES  FROM (SELECT EMAIL_INVER AS VECES FROM OPERACIONES_EN_ESPERA_SEC WHERE EMAIL_INTER='"+emailIntermediario+"' ) GROUP BY VECES), USUARIO WHERE EMAIL=VECES");
+    
+              return r;
+    }
+    
+    public static ResultSet darValoresOFerentes(conexionDB x,String email)
+    {
+        
+        ResultSet rta = x.consultar("select * from OPERACIONES_EN_ESPERA_PRIM where EMAIL_OFERENTE='"+email+"'");
+        
+        return rta;
+        
+        
+    }
+    
+    
      public static ArrayList operacionRangoFecha(String fechaInferior , String fechaSuperior , conexionDB conexion) throws SQLException
      {
          ArrayList lista= new ArrayList();

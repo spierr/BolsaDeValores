@@ -187,8 +187,8 @@ respuesta.write( "     <script src=\" ./Dashboard Template for Bootstrap_files/b
 respuesta.write( "     <script src=\" ./Dashboard Template for Bootstrap_files/docs.min.js\" ></script> \r\n"); 
 respuesta.write( "     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> \r\n"); 
 respuesta.write( "     <script src=\" ./Dashboard Template for Bootstrap_files/ie10-viewport-bug-workaround.js\" ></script> \r\n"); 
-respuesta.write( "    \r\n"); 
-respuesta.write( "      <form role=\" form\"  action=\" ServletCancelarOrdenOperacionBursatil.htm\"  method=\" post\" > \r\n"); 
+respuesta.write( "    \r\n");
+respuesta.write( "      <form role=\" form\"  action=\" ServletConsultaIT3.htm\"  method=\" post\" > \r\n"); 
 respuesta.write( "          <br> \r\n"); 
 respuesta.write( "       <h2>Visualizar Intermediarios</h2> \r\n"); 
 respuesta.write( "       <br> \r\n"); 
@@ -197,7 +197,7 @@ respuesta.write( "     \r\n");
 respuesta.write( "      </div> \r\n"); 
 respuesta.write( "     <div class=\" form-group\" > \r\n"); 
 respuesta.write( "     <label for=\" ejemplo_email_1\" >Intermediarios</label> \r\n"); 
-respuesta.write( "     <select class=\" form-control\"  name=\" Intermediario\"  > \r\n"); 
+respuesta.write( "     <select class=\" form-control\"  name=\"Intermediario\"  > \r\n"); 
 respuesta.write( "            <option value=\" \"  disabled selected>Seleccione el tipo de operacion bursatil</option> \r\n"); 
 
 
@@ -250,7 +250,7 @@ respuesta.write( "      \r\n");
 respuesta.write( "      \r\n"); 
 respuesta.write( "      \r\n"); 
 respuesta.write( "      \r\n"); 
-respuesta.write( "      <form role=\" form\"  action=\" ServletCancelarOrdenOperacionBursatil.htm\"  method=\" post\" > \r\n"); 
+respuesta.write( "      <form role=\" form\"  action=\" ServletConsultaIT3.htm\"  method=\" post\" > \r\n"); 
 respuesta.write( "          <br> \r\n"); 
 respuesta.write( "       <h2>Visualizar Oferentes</h2> \r\n"); 
 respuesta.write( "       <br> \r\n"); 
@@ -259,7 +259,7 @@ respuesta.write( "      \r\n");
 respuesta.write( "      </div> \r\n"); 
 respuesta.write( "     <div class=\" form-group\" > \r\n"); 
 respuesta.write( "     <label for=\" ejemplo_email_1\" >Oferentes</label> \r\n"); 
-respuesta.write( "     <select class=\" form-control\"  name=\" Oferente\"  > \r\n"); 
+respuesta.write( "     <select class=\" form-control\"  name=\"Oferente\"  > \r\n"); 
 respuesta.write( "            <option value=\" \"  disabled selected>Seleccione el tipo de operacion bursatil</option> \r\n"); 
 
 
@@ -311,7 +311,7 @@ respuesta.write( "      \r\n");
 respuesta.write( "      \r\n"); 
 respuesta.write( "      \r\n"); 
 respuesta.write( "      \r\n"); 
-respuesta.write( "      <form role=\" form\"  action=\" ServletCancelarOrdenOperacionBursatil.htm\"  method=\" post\" > \r\n"); 
+respuesta.write( "      <form role=\" form\"  action=\" ServletConsultaIT3.htm\"  method=\" post\" > \r\n"); 
 respuesta.write( "          <br> \r\n"); 
 respuesta.write( "       <h2>Visualizar Inversionistas</h2> \r\n"); 
 respuesta.write( "       <br> \r\n"); 
@@ -320,7 +320,7 @@ respuesta.write( "    \r\n");
 respuesta.write( "      </div> \r\n"); 
 respuesta.write( "     <div class=\" form-group\" > \r\n"); 
 respuesta.write( "     <label for=\" ejemplo_email_1\" >Inversionistas</label> \r\n"); 
-respuesta.write( "     <select class=\" form-control\"  name=\" Inversionista\"  > \r\n"); 
+respuesta.write( "     <select class=\" form-control\"  name=\"Inversionista\"  > \r\n"); 
 respuesta.write( "            <option value=\" \"  disabled selected>Seleccione el tipo de operacion bursatil</option> \r\n"); 
 try {
                               String sentenciaInversionistas="select * from inversionista";

@@ -88,6 +88,11 @@ Autor: Pablo Barvo - 08-Feb-2006
   <servlet-class>Servlets.ServletRetirarInversionista</servlet-class>
  </servlet>
  
+  <servlet>
+  <servlet-name>ServletConsultaIT3</servlet-name>
+  <servlet-class>Servlets.ServletConsultaIT3</servlet-class>
+ </servlet>
+ 
  
  <!-- MAPPING -->
  
@@ -158,6 +163,11 @@ Autor: Pablo Barvo - 08-Feb-2006
   <servlet-mapping>
   <servlet-name>ServletHTMLConsultas</servlet-name>
   <url-pattern>/consultasIte3.htm</url-pattern>
+ </servlet-mapping>
+ 
+ <servlet-mapping>
+  <servlet-name>ServletConsultaIT3</servlet-name>
+  <url-pattern>/ServletConsultaIT3.htm</url-pattern>
  </servlet-mapping>
  
  
