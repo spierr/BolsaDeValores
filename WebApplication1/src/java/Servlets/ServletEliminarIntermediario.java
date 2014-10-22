@@ -135,7 +135,7 @@ respuesta.write( "          <div class=\"table-responsive\">\r\n" );
 respuesta.write( "                <select class=\"form-control\" name=\"tipoUsuario\" >\r\n" );
 respuesta.write( "           <option value=\"\" disabled selected>Seleccione el Intermediario a eliminar</option>\r\n" );
  try {
-                              String sentancia="select * from INTERMEDIARIO";
+                              String sentancia="select * from INTERMEDIARIO where ESTA_ACTIVO ='Si'";
                               ResultSet rta = x.consultar(sentancia);
                               
                               while(rta.next())

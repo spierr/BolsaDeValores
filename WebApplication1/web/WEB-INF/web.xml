@@ -75,6 +75,11 @@ Autor: Pablo Barvo - 08-Feb-2006
  </servlet>
  
  <servlet>
+  <servlet-name>ServletVerPortafolios</servlet-name>
+  <servlet-class>Servlets.ServletVerPortafolios</servlet-class>
+ </servlet>
+ 
+ <servlet>
   <servlet-name>ServletHTMLConsultas</servlet-name>
   <servlet-class>Servlets.ServletHTMLConsultasIT3</servlet-class>
  </servlet> 
@@ -152,6 +157,11 @@ Autor: Pablo Barvo - 08-Feb-2006
  </servlet-mapping>
  
  <servlet-mapping>
+  <servlet-name>ServletVerPortafolios</servlet-name>
+  <url-pattern>/verPortafolios.htm</url-pattern>
+ </servlet-mapping>
+ 
+ <servlet-mapping>
   <servlet-name>ServletEliminarIntermediario</servlet-name>
   <url-pattern>/eliminarInversionista.htm</url-pattern>
  </servlet-mapping>
@@ -160,6 +170,7 @@ Autor: Pablo Barvo - 08-Feb-2006
   <servlet-name>ServletRetirarInversionista</servlet-name>
   <url-pattern>/retirarInversionista.htm</url-pattern>
  </servlet-mapping>
+ 
   <servlet-mapping>
   <servlet-name>ServletHTMLConsultas</servlet-name>
   <url-pattern>/consultasIte3.htm</url-pattern>

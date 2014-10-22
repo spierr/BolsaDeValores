@@ -144,7 +144,7 @@ public class ServletConsultaIT3 extends HttpServlet{
                              
                              
                          }
-                    
+                    x.close();
 	    	
 	    	
 	    }
