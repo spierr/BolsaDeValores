@@ -96,6 +96,7 @@ public class ServletVerPortafolios extends  HttpServlet {
                         }
                                   if(mod1!=null)
                         {
+                            System.out.println("Entraaaaaaaaaaaaaaaa");
                              String nit= request.getParameter( "nit" );
                             String valor= request.getParameter( "valor" );
                             String email= request.getParameter( "email" );
@@ -510,8 +511,7 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
                   respuesta.write( "                <br>\r\n" );
                   respuesta.write( "                </br>\r\n" );
                   respuesta.write("                   <h5>El porcentaje actual del valor es "+porcentaje+", inserte el nuevo por favor</h5>");
-                  respuesta.write("<input type=\"hidden\" value=\"mod"+i+"\" name=\"mod"+i+"/>");
-                  
+                  respuesta.write("<input type=\"hidden\"  value=\""+nit+"\" name=\"mod"+i+"\">");
                     respuesta.write("<input type=\"hidden\" value=\""+nit+"\" name=\"nit\"/>");
                    respuesta.write("<input type=\"hidden\" value=\""+valor+"\" name=\"valor\"/>");
                    respuesta.write("<input type=\"hidden\" value=\""+email+"\" name=\"email\"/>");
@@ -579,12 +579,13 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
     }
 
     private void modi(String nit, String valor, String email, String porcentaje, String nuevoPorcentaje, String cantidad, String total, PrintWriter respuesta, conexionDB x, int i) throws SQLException {
-         
+         respuesta.write("                   <h3>Transaccion finalizada</h3>");
+                 
         double nuevo= Double.parseDouble(nuevoPorcentaje);
         double viejo= Double.parseDouble(porcentaje);
-           ResultSet r=x.consultar("SELECT * FROM INVERSIONISTA WHERE EMAIL = '"+email+"'");
+           ResultSet r=x.consultar("SELECT * FROM INVERSIONISTA WHERE EMAIL = '"+email+"' ");
             
-            ResultSet maximoid= x.consultar("SELECT MAX (ID) FROM SOLICITUDES_COMPRA_SEC ");
+            ResultSet maximoid= x.consultar("SELECT MAX (ID) FROM OPERACIONES_EN_ESPERA_SEC ");
             maximoid.next();
             
              int nuevoid= Integer.parseInt(maximoid.getString("MAX(ID)"))+1 ;
@@ -594,17 +595,15 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
         if(nuevo>viejo)
         {
             
-         
-            
-           
-            if(  x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_PRIM VALUES"
+            if(  x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_SEC VALUES"
                     + "("+nuevoid+",'"+email+"','"+valor+"',"+nit+",'Compra',null,"+(nuevo*Double.parseDouble(cantidad)-viejo*Double.parseDouble(cantidad))
-                     + ",(SELECT SYSDATE FROM DUAL),'"+inter+"',null,null,"+i+" )")){
+                     + ",(SELECT SYSDATE FROM DUAL),'"+inter+"',null,null,"+i+" )"))
+            {
             respuesta.write( "           <div class=\"panel panel-primary\">\r\n" );
             respuesta.write( "            <div class=\"panel-body\">\r\n" );
             respuesta.write( "              Orden solicitada\r\n" );
             respuesta.write( "            </div>\r\n" );
-            respuesta.write( "            <div class=\"panel-footer\">La solicitud se ingreso con exito al sistema</div>\r\n" );
+            respuesta.write( "            <div class=\"panel-footer\">La solicitud se ingreso con exito al sistema, recuerde que su intermediario es "+inter+" </div>\r\n" );
             respuesta.write( "          </div>\r\n" );   
             }
             else
@@ -617,11 +616,28 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
                 respuesta.write( "          </div>\r\n" );   
             }
             }
-               else
+        else if(nuevo<viejo)
         {
-             x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_PRIM VALUES"
-                    + "(id,emailinver,nomvalor,nit,tipooperacion,precio,cantidad,(SELECT SYSDATE FROM DUAL),emailinTer,precio,null,portaf  )");
-            
+            if(  x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_SEC VALUES"
+                    + "("+nuevoid+",'"+email+"','"+valor+"',"+nit+",'Venta',null,"+(viejo*Double.parseDouble(cantidad)-nuevo*Double.parseDouble(cantidad))
+                     + ",(SELECT SYSDATE FROM DUAL),'"+inter+"',123,4234,"+i+" )")){
+            respuesta.write( "           <div class=\"panel panel-primary\">\r\n" );
+            respuesta.write( "            <div class=\"panel-body\">\r\n" );
+            respuesta.write( "              Orden solicitada\r\n" );
+            respuesta.write( "            </div>\r\n" );
+            respuesta.write( "            <div class=\"panel-footer\">La solicitud se ingreso con exito al sistema, recuerde que su intermediario es "+inter+" </div>\r\n" );
+            respuesta.write( "          </div>\r\n" );   
+            }
+            else
+            {
+                respuesta.write( "           <div class=\"panel panel-primary\">\r\n" );
+                respuesta.write( "            <div class=\"panel-body\">\r\n" );
+                respuesta.write( "              Orden solicitada\r\n" );
+                respuesta.write( "            </div>\r\n" );
+                respuesta.write( "            <div class=\"panel-footer\">La solicitud tuvo un error</div>\r\n" );
+                respuesta.write( "          </div>\r\n" );   
+            }
+            }
             
         }  
           
@@ -634,5 +650,5 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
     
 
    
-            
-}
+       
+
