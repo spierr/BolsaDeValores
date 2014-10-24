@@ -37,6 +37,14 @@ public class conexionDB {
             {
                 conexion.commit();
             }
+             public void rollBack() 
+            {
+        try {
+            conexion.rollback();
+        } catch (SQLException ex) {
+            Logger.getLogger(conexionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            }
              public void setAutoCommit(boolean valor)
             {
         try {

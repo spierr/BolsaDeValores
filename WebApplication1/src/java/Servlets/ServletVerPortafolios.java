@@ -8,6 +8,8 @@ package Servlets;
 import ConsultaDAO.Consultas;
 import Fachada.conexionDB;
 import static Servlets.ServletRegistrarOrden.SOLICITAR_COMPRA_PRIM;
+import VOS.OperacionEsperaSec;
+import VOS.SolicitudCompra;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -30,8 +32,113 @@ public class ServletVerPortafolios extends  HttpServlet {
     protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
 	    {
 	        
-                       
+                        conexionDB x = new conexionDB();
+                        x.setAutoCommit(false);
+                        PrintWriter respuesta = response.getWriter() ;
+                        imprimirHeader(respuesta);
                         
+                        
+                        
+                        String modificarModerado = request.getParameter( "modificarModerado" );
+                        String modificarConservador = request.getParameter( "modificarConservador" );
+                        String modificarAgresivo = request.getParameter( "modificarAgresivo" );
+                         String mod1 = request.getParameter( "mod1" );
+                          String mod2 = request.getParameter( "mod2" );
+                           String mod3 = request.getParameter( "mod3" );
+                        String conservador= request.getParameter( "conservador" );
+                        String moderado= request.getParameter( "moderado" );
+                        String agresivo= request.getParameter( "agresivo" );
+                        try {
+                    if(modificarConservador!=null)
+                        {
+                            String nit= request.getParameter( "nit" );
+                            String valor= request.getParameter( "valor" );
+                            String email= request.getParameter( "email" );
+                            String porcentaje= request.getParameter( "porcentaje" );
+                            String cantidad= request.getParameter( "cantidad" );
+                            String total= request.getParameter( "total" );
+                            modificar(nit, valor, email, porcentaje, cantidad, total, respuesta, x, 1);
+                        }
+                         if(modificarModerado!=null)
+                        {
+                             String nit= request.getParameter( "nit" );
+                            String valor= request.getParameter( "valor" );
+                            String email= request.getParameter( "email" );
+                            String porcentaje= request.getParameter( "porcentaje" );
+                            String cantidad= request.getParameter( "cantidad" );
+                            String total= request.getParameter( "total" );
+                            modificar(nit, valor, email, porcentaje, cantidad, total, respuesta, x, 2);
+                        }
+                          if(modificarAgresivo!=null)
+                        {
+                            String nit= request.getParameter( "nit" );
+                            String valor= request.getParameter( "valor" );
+                            String email= request.getParameter( "email" );
+                            String porcentaje= request.getParameter( "porcentaje" );
+                            String cantidad= request.getParameter( "cantidad" );
+                            String total= request.getParameter( "total" );
+                            modificar(nit, valor, email, porcentaje, cantidad, total, respuesta, x, 3);
+                        }
+                           if(conservador!=null)
+                        {
+                             String email= request.getParameter( "email" );
+                             agregar(email, x, respuesta,1);
+                        }
+                            if(moderado!=null)
+                        {
+                            String email= request.getParameter( "email" );
+                             agregar(email, x, respuesta,2);
+                        }
+                             if(agresivo!=null)
+                        {
+                            String email= request.getParameter( "email" );
+                             agregar(email, x, respuesta, 3);
+                        }
+                                  if(mod1!=null)
+                        {
+                             String nit= request.getParameter( "nit" );
+                            String valor= request.getParameter( "valor" );
+                            String email= request.getParameter( "email" );
+                            String porcentaje= request.getParameter( "porcentaje" );
+                            String cantidad= request.getParameter( "cantidad" );
+                            String total= request.getParameter( "total" );
+                            String nuevoPorcentaje= request.getParameter( "porcentajeNuevo" );
+                            modi(nit, valor, email, porcentaje, nuevoPorcentaje, cantidad, total, respuesta, x, 1);
+                        }
+                                       if(mod2!=null)
+                        {
+                            String nit= request.getParameter( "nit" );
+                            String valor= request.getParameter( "valor" );
+                            String email= request.getParameter( "email" );
+                            String porcentaje= request.getParameter( "porcentaje" );
+                            String cantidad= request.getParameter( "cantidad" );
+                            String total= request.getParameter( "total" );
+                             String nuevoPorcentaje= request.getParameter( "porcentajeNuevo" );
+                            modi(nit, valor, email, porcentaje, nuevoPorcentaje, cantidad, total, respuesta, x, 2);
+                        }
+                                            if(mod3!=null)
+                        {
+                            String nit= request.getParameter( "nit" );
+                            String valor= request.getParameter( "valor" );
+                            String email= request.getParameter( "email" );
+                            String porcentaje= request.getParameter( "porcentaje" );
+                            String cantidad= request.getParameter( "cantidad" );
+                            String total= request.getParameter( "total" );
+                             String nuevoPorcentaje= request.getParameter( "porcentajeNuevo" );
+                            modi(nit, valor, email, porcentaje, nuevoPorcentaje, cantidad, total, respuesta, x, 3);
+                        }
+                                                     
+                         
+                        x.commit();
+                } catch (Exception e) {
+                     respuesta.write("Error cargando pagina: "+e.getMessage());
+                     x.rollBack();
+                }
+                        
+                        
+                        
+                        imprimirFooter(respuesta);
+                        x.close();
                          
                       
 	    }
@@ -53,7 +160,6 @@ public class ServletVerPortafolios extends  HttpServlet {
                         }
                                     
                         imprimirFooter(respuesta);
-                        
                         x.close();
 	    }
 		
@@ -62,7 +168,7 @@ public class ServletVerPortafolios extends  HttpServlet {
     {
                               
 			
-			respuesta.write( "<!DOCTYPE html>\r\n" );
+respuesta.write( "<!DOCTYPE html>\r\n" );
 respuesta.write( "<!-- saved from url=(0044)http://getbootstrap.com/examples/dashboard/? -->\r\n" );
 respuesta.write( "<html lang=\"en\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n" );
 respuesta.write( "    <meta charset=\"utf-8\">\r\n" );
@@ -136,8 +242,8 @@ respuesta.write( "          </ul>\r\n" );
 respuesta.write( "          <ul class=\"nav nav-sidebar\">\r\n" );
 respuesta.write( "            <li><a href=\"./consultarExistencia.htm\">Consultar existencia de valores</a></li>\r\n" );
 respuesta.write( "            <li><a href=\"./consultarOperacion.htm\">Consultar operaciones de un usuario</a></li>\r\n" );
-respuesta.write( "            <li><a href=\"./portafolios.htm\">Portafolios</a></li>\r\n" );
-respuesta.write( "            <li class=\"active\"><a href=\"./eliminarInversionista.htm\">Eliminar Intermediario</a></li>\r\n" );
+respuesta.write( "            <li class=\"active\"><a href=\"./portafolios.htm\">Portafolios</a></li>\r\n" );
+respuesta.write( "            <li><a href=\"./eliminarInversionista.htm\">Eliminar Intermediario</a></li>\r\n" );
 respuesta.write( "              <li><a href=\"./consultasIte3.htm\">Consultas</a></li>\r\n" );
 respuesta.write( "          </ul>\r\n" );
 respuesta.write( "          \r\n" );
@@ -148,11 +254,11 @@ respuesta.write( "          <div class=\"row placeholders\">\r\n" );
 respuesta.write( "            <div class=\"col-xs-6 col-sm-3 placeholder\">\r\n" );
 respuesta.write( "            \r\n" );
 respuesta.write( "            </div>\r\n" );
-respuesta.write( "          </div>\r\n" );
+respuesta.write( "          </div>\r\n" );     
     }
      public void imprimirFooter(PrintWriter respuesta)
     {
-        respuesta.write( "        </div>\r\n" );
+          respuesta.write( "        </div>\r\n" );
 respuesta.write( "      </div>\r\n" );
 respuesta.write( "    </div>\r\n" );
 respuesta.write( "    <!-- Bootstrap core JavaScript\r\n" );
@@ -197,16 +303,172 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
               while(rta.next())
                         {
                           
-                  respuesta.write(" <form role=\"form\" action=\"verPortafolio.htm\" method=\"get\">");
+                  respuesta.write(" <form role=\"form\" action=\"verPortafolios.htm\" method=\"get\">");
                   respuesta.write( "                </tr>\r\n" );
                   respuesta.write( "              </thead>\r\n" );
                   respuesta.write( "              <tbody>\r\n" );
                   respuesta.write( "                <tr>\r\n" );
+                  respuesta.write("<input type=\"hidden\" value=\"modificar\" name=\"modificarConservador\"/>");
                   respuesta.write("<input type=\"hidden\" value=\""+rta.getString("EMAIL")+"\" name=\"email\"/>");
                   respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NIT_VALOR")+"\" name=\"nit\"/>");
                   respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NOM_VALOR")+"\" name=\"valor\"/>");
-                  System.out.println("precio total "+precioTotal);
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("CANTIDAD")+"\" name=\"cantidad\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getDouble("CANTIDAD")*100/precioTotal+"\" name=\"porcentaje\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+precioTotal+"\" name=\"total\"/>");
+                 
+                                    respuesta.write( "                  <td>"+rta.getString("EMAIL")+"</td>\r\n" );
+                                    respuesta.write( "                   <td>"+rta.getString("NOM_VALOR")+"</td>\r\n" );
+                                    respuesta.write( "                    <td>"+rta.getString("NIT_VALOR")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getString("CANTIDAD")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getString("ID_PORTAFOLIO")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getDouble("CANTIDAD")*100/precioTotal+"%</td>\r\n" );
+                                    respuesta.write( "                  <td>    <button type=\"submit\" class=\"btn btn-default\">Modificar</button>   </td>\r\n" );
+                                   
+                       respuesta.write( "                </tr>\r\n" );
+                  respuesta.write("</form>");
+              }
+              respuesta.write( "              </tbody>\r\n" );
+                    respuesta.write( "            </table>\r\n" );
+                    respuesta.write( "          </div>\r\n" );
+                  
+             
+                                                            } catch (SQLException ex) {
+                                                               respuesta.write("Error consultando portafolio de consulta: "+ex.getMessage());
+                                                            }
+             //cierre de coneccionConsultando 
+           respuesta.write(" <form role=\"form\" action=\"verPortafolio.htm\" method=\"get\">");
+                   respuesta.write("<input type=\"hidden\" value=\"agregar\" name=\"conservador\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+inversionista+"\" name=\"email\"/>");
+                                      respuesta.write( "                   <button type=\"submit\" class=\"btn btn-default\">Agregar valor</button>   \r\n" );
+                    respuesta.write("</form>");
+                                                            
+                  
+
+                    respuesta.write( "                <br>\r\n" );
+                    respuesta.write( "                </br>\r\n" );
+                      respuesta.write( "                <br>\r\n" );
+                    respuesta.write( "                </br>\r\n" );
+
+    
+    }
+
+    private void imprimirInversionistaModerado(PrintWriter respuesta, conexionDB x, String inversionista) {
+   
+    
+     ResultSet rta =  x.consultar("SELECT * FROM  VALORES_DE_INVERSIONISTAS where EMAIL= '"+inversionista+"' and ID_PORTAFOLIO=2");
+     ResultSet rta2 =  x.consultar("SELECT * FROM  VALORES_DE_INVERSIONISTAS where EMAIL= '"+inversionista+"' and ID_PORTAFOLIO=2");
+     double precioTotal= 0;
+        
+    
+     respuesta.write("                   <h3>Moderado</h3>");
+         respuesta.write( "          <div class=\"table-responsive\">\r\n" );
+                    respuesta.write( "            <table class=\"table table-striped\">\r\n" );
+                    respuesta.write( "              <thead>\r\n" );
+                    respuesta.write( "                <tr>\r\n" );
+                    respuesta.write( "                  <th>Email inversionista</th>\r\n" );
+                    respuesta.write( "                   <th>Valor</th>\r\n" );
+                    respuesta.write( "                   <th>Nit</th>\r\n" );
+                    respuesta.write( "                   <th>Cantidad</th>\r\n" );
+                    respuesta.write( "                   <th>Tipo portafolio</th>\r\n" );
+                    respuesta.write( "                   <th>Porcentaje</th>\r\n" );
+                    respuesta.write( "                   <th>Opción</th>\r\n" );
+          try {
+               while ( rta2.next()) {
+                precioTotal+=Double.parseDouble(rta2.getString("CANTIDAD"));
+            }
+              while(rta.next())
+                        {
+                          
+                  respuesta.write(" <form role=\"form\" action=\"verPortafolios.htm\" method=\"get\">");
+                  respuesta.write( "                </tr>\r\n" );
+                  respuesta.write( "              </thead>\r\n" );
+                  respuesta.write( "              <tbody>\r\n" );
+                  respuesta.write( "                <tr>\r\n" );
+                  respuesta.write("<input type=\"hidden\" value=\"modificar\" name=\"modificarModerado\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("EMAIL")+"\" name=\"email\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NIT_VALOR")+"\" name=\"nit\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NOM_VALOR")+"\" name=\"valor\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("CANTIDAD")+"\" name=\"cantidad\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getDouble("CANTIDAD")*100/precioTotal+"\" name=\"porcentaje\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+precioTotal+"\" name=\"total\"/>");
+                  
+                                    respuesta.write( "                  <td>"+rta.getString("EMAIL")+"</td>\r\n" );
+                                    respuesta.write( "                   <td>"+rta.getString("NOM_VALOR")+"</td>\r\n" );
+                                    respuesta.write( "                    <td>"+rta.getString("NIT_VALOR")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getString("CANTIDAD")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getString("ID_PORTAFOLIO")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getDouble("CANTIDAD")*100/precioTotal+"%</td>\r\n" );
+                                    respuesta.write( "                  <td>    <button type=\"submit\" class=\"btn btn-default\">Modificar</button>   </td>\r\n" );
+                                   
+                       respuesta.write( "                </tr>\r\n" );
+                  respuesta.write("</form>");
+              }
+              respuesta.write( "              </tbody>\r\n" );
+                    respuesta.write( "            </table>\r\n" );
+                    respuesta.write( "          </div>\r\n" );
                    
+                  
+             
+                                                            } catch (SQLException ex) {
+                                                               respuesta.write("Error consultando portafolio de consulta: "+ex.getMessage());
+                                                            }
+                 respuesta.write(" <form role=\"form\" action=\"verPortafolio.htm\" method=\"get\">");
+                  respuesta.write("<input type=\"hidden\" value=\""+inversionista+"\" name=\"email\"/>");
+                   
+                  respuesta.write("<input type=\"hidden\" value=\"agregar\" name=\"moderado\"/>");
+                    respuesta.write( "                   <button type=\"submit\" class=\"btn btn-default\">Agregar valor</button>   \r\n" );
+                    respuesta.write("</form>");
+
+                    
+                    respuesta.write( "                <br>\r\n" );
+                    respuesta.write( "                </br>\r\n" );
+                      respuesta.write( "                <br>\r\n" );
+                    respuesta.write( "                </br>\r\n" );
+
+    
+    }
+
+    private void imprimirInversionistaAgresivo(PrintWriter respuesta, conexionDB x, String inversionista) {
+    
+    
+     ResultSet rta =  x.consultar("SELECT * FROM  VALORES_DE_INVERSIONISTAS where EMAIL= '"+inversionista+"' and ID_PORTAFOLIO=3");
+     ResultSet rta2 =  x.consultar("SELECT * FROM  VALORES_DE_INVERSIONISTAS where EMAIL= '"+inversionista+"' and ID_PORTAFOLIO=3");
+     double precioTotal= 0;
+        
+    
+     respuesta.write("                   <h3>Agresivo</h3>");
+         respuesta.write( "          <div class=\"table-responsive\">\r\n" );
+                    respuesta.write( "            <table class=\"table table-striped\">\r\n" );
+                    respuesta.write( "              <thead>\r\n" );
+                    respuesta.write( "                <tr>\r\n" );
+                    respuesta.write( "                  <th>Email inversionista</th>\r\n" );
+                    respuesta.write( "                   <th>Valor</th>\r\n" );
+                    respuesta.write( "                   <th>Nit</th>\r\n" );
+                    respuesta.write( "                   <th>Cantidad</th>\r\n" );
+                    respuesta.write( "                   <th>Tipo portafolio</th>\r\n" );
+                    respuesta.write( "                   <th>Porcentaje</th>\r\n" );
+                    respuesta.write( "                   <th>Opción</th>\r\n" );
+          try {
+               while ( rta2.next()) {
+                precioTotal+=Double.parseDouble(rta2.getString("CANTIDAD"));
+            }
+              while(rta.next())
+                        {
+                          
+                  respuesta.write(" <form role=\"form\" action=\"verPortafolios.htm\" method=\"get\">");
+                  respuesta.write( "                </tr>\r\n" );
+                  respuesta.write( "              </thead>\r\n" );
+                  respuesta.write( "              <tbody>\r\n" );
+                  respuesta.write( "                <tr>\r\n" );
+                  respuesta.write("<input type=\"hidden\" value=\"modificar\" name=\"modificarAgresivo\"/>");
+                  
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("EMAIL")+"\" name=\"email\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NIT_VALOR")+"\" name=\"nit\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NOM_VALOR")+"\" name=\"valor\"/>");
+                   respuesta.write("<input type=\"hidden\" value=\""+rta.getString("CANTIDAD")+"\" name=\"cantidad\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getDouble("CANTIDAD")*100/precioTotal+"\" name=\"porcentaje\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+precioTotal+"\" name=\"total\"/>");
+               
                                     respuesta.write( "                  <td>"+rta.getString("EMAIL")+"</td>\r\n" );
                                     respuesta.write( "                   <td>"+rta.getString("NOM_VALOR")+"</td>\r\n" );
                                     respuesta.write( "                    <td>"+rta.getString("NIT_VALOR")+"</td>\r\n" );
@@ -215,58 +477,162 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
                                     respuesta.write( "                     <td>"+rta.getDouble("CANTIDAD")*100/precioTotal+"%</td>\r\n" );
                                     System.out.println("precio "+rta.getDouble("CANTIDAD"));
                                     respuesta.write( "                  <td>    <button type=\"submit\" class=\"btn btn-default\">Modificar</button>   </td>\r\n" );
-                                    respuesta.write( "                </tr>\r\n" );
-                                    respuesta.write( "                \r\n" );
-                       
-                  
-                  respuesta.write( "                </tr>\r\n" );
+                                   
+                       respuesta.write( "                </tr>\r\n" );
                   respuesta.write("</form>");
-                   }
-              respuesta.write(" <form role=\"form\" action=\"verPortafolio.htm\" method=\"get\">");
-              respuesta.write("<input type=\"hidden\" value=\"modificar\" name=\"conservador\"/>");
-              respuesta.write( "                  <td>    <button type=\"submit\" class=\"btn btn-default\">Agregar valor</button>   </td>\r\n" );
-              respuesta.write("</form>");
+              }
               respuesta.write( "              </tbody>\r\n" );
                     respuesta.write( "            </table>\r\n" );
                     respuesta.write( "          </div>\r\n" );
-                   
+                  
              
                                                             } catch (SQLException ex) {
                                                                respuesta.write("Error consultando portafolio de consulta: "+ex.getMessage());
                                                             }
-             //cierre de coneccionConsultando 
+               
+                   respuesta.write(" <form role=\"form\" action=\"verPortafolio.htm\" method=\"get\">");
+                   respuesta.write("<input type=\"hidden\" value=\""+inversionista+"\" name=\"email\"/>");
+                  
+                  respuesta.write("<input type=\"hidden\" value=\"agregar\" name=\"agresivo\"/>");
+                    respuesta.write( "                   <button type=\"submit\" class=\"btn btn-default\">Agregar valor</button>   \r\n" );
+                    respuesta.write("</form>");
                                                             
+                  
+
+
+
+    
+    }
+
+    private void modificar(String nit, String valor, String email, String porcentaje, String cantidad, String total, PrintWriter respuesta, conexionDB x, int i) {
+                  respuesta.write(" <form role=\"form\" action=\"verPortafolios.htm\" method=\"get\">");
+                  respuesta.write("                   <h3>Modificar "+valor+" de "+email+"</h3>");
+                  respuesta.write( "                <br>\r\n" );
+                  respuesta.write( "                </br>\r\n" );
+                  respuesta.write("                   <h5>El porcentaje actual del valor es "+porcentaje+", inserte el nuevo por favor</h5>");
+                  respuesta.write("<input type=\"hidden\" value=\"mod"+i+"\" name=\"mod"+i+"/>");
+                  
+                    respuesta.write("<input type=\"hidden\" value=\""+nit+"\" name=\"nit\"/>");
+                   respuesta.write("<input type=\"hidden\" value=\""+valor+"\" name=\"valor\"/>");
+                   respuesta.write("<input type=\"hidden\" value=\""+email+"\" name=\"email\"/>");
+                    respuesta.write("<input type=\"hidden\" value=\""+porcentaje+"\" name=\"porcentaje\"/>");
+                     respuesta.write("<input type=\"hidden\" value=\""+cantidad+"\" name=\"cantidad\"/>");
+                      respuesta.write("<input type=\"hidden\" value=\""+total+"\" name=\"total\"/>");
+                        respuesta.write("<input type=\"hidden\" value=\"mod"+i+"\" name=\"portafolio\"/>");
+                   respuesta.write("<input type=\"text\" placeholder=\"Nuevo porcentaje\" name=\"porcentajeNuevo\"/>");
+                  
+                         respuesta.write( "                  <td>    <button type=\"submit\" class=\"btn btn-default\">Enviar cambios</button>   </td>\r\n" );
+                  respuesta.write("</form>");
+    }
+
+    private void agregar(String email, conexionDB x, PrintWriter respuesta, int i) {
+          ResultSet rta =  x.consultar("SELECT *  FROM OPERACIONES_EN_ESPERA_SEC  WHERE PORTAFOLIO= "+i+" FOR UPDATE  ");
+       
+    
+     respuesta.write("                   <h3>Agregar a valor a portafolio</h3>");
+         respuesta.write( "          <div class=\"table-responsive\">\r\n" );
+                    respuesta.write( "            <table class=\"table table-striped\">\r\n" );
+                    respuesta.write( "              <thead>\r\n" );
+                    respuesta.write( "                <tr>\r\n" );
+                    respuesta.write( "                  <th>Email intermediario</th>\r\n" );
+                    respuesta.write( "                   <th>Valor</th>\r\n" );
+                    respuesta.write( "                   <th>Nit</th>\r\n" );
+                    respuesta.write( "                   <th>Cantidad</th>\r\n" );
+                    respuesta.write( "                   <th>Tipo portafolio</th>\r\n" );
+                    respuesta.write( "                   <th>Opción</th>\r\n" );
+          try {
+              
+              while(rta.next())
+                        {
+                          
+                  respuesta.write(" <form role=\"form\" action=\"verPortafolios.htm\" method=\"get\">");
+                  respuesta.write( "                </tr>\r\n" );
+                  respuesta.write( "              </thead>\r\n" );
+                  respuesta.write( "              <tbody>\r\n" );
+                  respuesta.write( "                <tr>\r\n" );
+                  respuesta.write("<input type=\"hidden\" value=\"comprar\" name=\"agregar\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("EMAIL_INTER")+"\" name=\"email\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NIT_VALOR")+"\" name=\"nit\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("NOM_VALOR")+"\" name=\"valor\"/>");
+                  respuesta.write("<input type=\"hidden\" value=\""+rta.getString("CANTIDAD")+"\" name=\"cantidad\"/>");
+                 
+                                    respuesta.write( "                  <td>"+rta.getString("EMAIL_INTER")+"</td>\r\n" );
+                                    respuesta.write( "                   <td>"+rta.getString("NOM_VALOR")+"</td>\r\n" );
+                                    respuesta.write( "                    <td>"+rta.getString("NIT_VALOR")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getString("CANTIDAD")+"</td>\r\n" );
+                                    respuesta.write( "                     <td>"+rta.getString("ID_PORTAFOLIO")+"</td>\r\n" );
+                                    respuesta.write( "                  <td>    <button type=\"submit\" class=\"btn btn-default\">Solicitar compra</button>   </td>\r\n" );
+                                   
+                       respuesta.write( "                </tr>\r\n" );
+                  respuesta.write("</form>");
+              }
+              respuesta.write( "              </tbody>\r\n" );
+                    respuesta.write( "            </table>\r\n" );
+                    respuesta.write( "          </div>\r\n" );
+                  
+             
+                                                            } catch (SQLException ex) {
+                                                               respuesta.write("Error consultando portafolio de consulta: "+ex.getMessage());
+                                                            }
+       
+               
+    }
+
+    private void modi(String nit, String valor, String email, String porcentaje, String nuevoPorcentaje, String cantidad, String total, PrintWriter respuesta, conexionDB x, int i) throws SQLException {
+         
+        double nuevo= Double.parseDouble(nuevoPorcentaje);
+        double viejo= Double.parseDouble(porcentaje);
+           ResultSet r=x.consultar("SELECT * FROM INVERSIONISTA WHERE EMAIL = '"+email+"'");
+            
+            ResultSet maximoid= x.consultar("SELECT MAX (ID) FROM SOLICITUDES_COMPRA_SEC ");
+            maximoid.next();
+            
+             int nuevoid= Integer.parseInt(maximoid.getString("MAX(ID)"))+1 ;
+
+             r.next();
+             String inter=  r.getString("EMAIL_INTE");
+        if(nuevo>viejo)
+        {
+            
+         
+            
+           
+            if(  x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_PRIM VALUES"
+                    + "("+nuevoid+",'"+email+"','"+valor+"',"+nit+",'Compra',null,"+(nuevo*Double.parseDouble(cantidad)-viejo*Double.parseDouble(cantidad))
+                     + ",(SELECT SYSDATE FROM DUAL),'"+inter+"',null,null,"+i+" )")){
+            respuesta.write( "           <div class=\"panel panel-primary\">\r\n" );
+            respuesta.write( "            <div class=\"panel-body\">\r\n" );
+            respuesta.write( "              Orden solicitada\r\n" );
+            respuesta.write( "            </div>\r\n" );
+            respuesta.write( "            <div class=\"panel-footer\">La solicitud se ingreso con exito al sistema</div>\r\n" );
+            respuesta.write( "          </div>\r\n" );   
+            }
+            else
+            {
+                respuesta.write( "           <div class=\"panel panel-primary\">\r\n" );
+                respuesta.write( "            <div class=\"panel-body\">\r\n" );
+                respuesta.write( "              Orden solicitada\r\n" );
+                respuesta.write( "            </div>\r\n" );
+                respuesta.write( "            <div class=\"panel-footer\">La solicitud tuvo un error</div>\r\n" );
+                respuesta.write( "          </div>\r\n" );   
+            }
+            }
+               else
+        {
+             x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_PRIM VALUES"
+                    + "(id,emailinver,nomvalor,nit,tipooperacion,precio,cantidad,(SELECT SYSDATE FROM DUAL),emailinTer,precio,null,portaf  )");
+            
+            
+        }  
+          
+        }
+       
+       
            
     
-    respuesta.write( "<div class=\"modal fade\">\r\n" );
-respuesta.write( "  <div class=\"modal-dialog\">\r\n" );
-respuesta.write( "    <div class=\"modal-content\">\r\n" );
-respuesta.write( "      <div class=\"modal-header\">\r\n" );
-respuesta.write( "        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n" );
-respuesta.write( "        <h4 class=\"modal-title\">Modal title</h4>\r\n" );
-respuesta.write( "      </div>\r\n" );
-respuesta.write( "      <div class=\"modal-body\">\r\n" );
-respuesta.write( "        <p>One fine body&hellip;</p>\r\n" );
-respuesta.write( "      </div>\r\n" );
-respuesta.write( "      <div class=\"modal-footer\">\r\n" );
-respuesta.write( "        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\r\n" );
-respuesta.write( "        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\r\n" );
-respuesta.write( "      </div>\r\n" );
-respuesta.write( "    </div><!-- /.modal-content -->\r\n" );
-respuesta.write( "  </div><!-- /.modal-dialog -->\r\n" );
-respuesta.write( "</div><!-- /.modal -->\r\n" );
-    
-    
-    
-    
-    }
 
-    private void imprimirInversionistaModerado(PrintWriter respuesta, conexionDB x, String inversionista) {
+    
+
    
-    }
-
-    private void imprimirInversionistaAgresivo(PrintWriter respuesta, conexionDB x, String inversionista) {
-    
-    }
             
 }

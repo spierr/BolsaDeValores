@@ -25,6 +25,7 @@ public class OperacionEsperaSec
     private long nitValor;
     private String nomValor;
     private String tipoOperacion;
+     private int portafolio;
 
     @Override
     public String toString() {
@@ -51,6 +52,7 @@ public class OperacionEsperaSec
                 nitValor=Long.parseLong(r.getString("NIT_VALOR"));
                 nomValor=r.getString("NOM_VALOR");
                 precioUnidad=Double.parseDouble(r.getString("PRECIO_UNIDAD"));
+                 portafolio=Integer.parseInt(r.getString("PORTAFOLIO"));
                 try {
                     cantidad=Integer.parseInt(r.getString("CANTIDAD"));
                 } catch (Exception e) {
@@ -80,6 +82,10 @@ public class OperacionEsperaSec
            
         }
         
+    }
+
+    public int getPortafolio() {
+        return portafolio;
     }
     public OperacionEsperaSec(){}
     public OperacionEsperaSec obtenerPorIdSolicitud(int idp) throws SQLException 
