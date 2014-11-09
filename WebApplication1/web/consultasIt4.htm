@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0044)http://getbootstrap.com/examples/dashboard/? -->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -75,172 +80,176 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
+       <ul class="nav nav-sidebar">
               <li ><a href="./ordenarOperacionPrim.htm">Ordenar operación primaria</a></li>
-            <li class="active"><a href="./ordenarOperacionSec.htm">Ordenar operación secundaria</a></li>
-            <li ><a href="./cancelarOperacion.htm">Cancelar operación bursátil</a></li>
+            <li><a href="./ordenarOperacionSec.htm">Ordenar operación secundaria</a></li>
+            <li><a href="./cancelarOperacion.htm">Cancelar operación bursátil</a></li>
             <li><a href="./registrarOperacion.htm">Registrar operación </a></li>
           
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="./consultarExistencia.htm">Consultar existencia de valores</a></li>
+            <li ><a href="./consultarExistencia.htm">Consultar existencia de valores</a></li>
             <li><a href="./consultarOperacion.htm">Consultar operaciones de un usuario</a></li>
             <li><a href="./portafolios.htm">Portafolios</a></li>
             <li><a href="./eliminarInversionista.htm">Eliminar Intermediario</a></li>
               <li><a href="./consultasIte3.htm">Consultas</a></li>
-                  <li><a href="./consultasIt4.htm">Consultas 4</a></li>
+              <li class ="active"><a href="./consultasIt4.htm">Consultas 4</a></li>
           </ul>
           
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Ordenar operación secundaria</h1>
-<form role="form" action="ServletOrdenarOperacionBursatil.htm" method="get">
-      <h3>Venta</h3>
-  <div class="form-group">
-    <label for="ejemplo_email_1">Email inversionista</label>
-    <input type="email" class="form-control" id="emailOferente" name="emailInversionista"
-           placeholder="Introduce el email">
-  </div>
-  <div class="form-group">
-    <label for="ejemplo_email_1">Email intermediario</label>
-    <input type="email" class="form-control" id="emailIntermediario" name="emailIntermediario"
-           placeholder="Introduce el email">
-  </div>
-             
-    <div class="form-group">
-    <label for="ejemplo_email_1">Tipo de operacion</label>
-    <select class="form-control" name="tipoOperacion" >
-           <option value="" disabled selected>Seleccione el tipo de operacion</option>
-          <option value="VENTA">Venta</option>
-         
-        </select>
-  </div>   
-    
-  <div class="form-group">
-    <label for="ejemplo_email_1">Tipo del valor</label>
-    <select class="form-control" name="tipoValor" >
-           <option value="" disabled selected>Seleccione el tipo de valor a transar</option>
+          <h1 class="page-header">Consultas it4</h1>
+
+          <div class="row placeholders">
+           
+          </div>
+            <form role="form" action="ServletConsultasIt4.htm" method="get">
+          <h3 class="sub-header">Consultar Valores 2</h3>
+          <div class="table-responsive">
+              <br>
+              <label for="ejemplo_email_1">Nit</label>
+       <input type="text" class="form-control" id="nit" name="nitConsultarValores2" placeholder="Introduzca el nit de la emprea que desea filtrar" required="" autofocus="">
+              <br>
+              <label for="ejemplo_email_1">Tipo del valor</label>
+    <select class="form-control" name="tipoValorConsultarValores2" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
           <option value="Accion" >Accion</option>
           <option value="BonoPriv">Bono privado</option>
           <option value="BonoPub">Bono público</option>
           <option value="Certificado">Certificado</option>
           <option value="Titulo">Titulo de participacion</option>
         </select>
-  </div>           
-  
-  <div class="form-group">
-    <label for="ejemplo_email_1">Nit</label>
-       <input type="text" class="form-control" id="nit" name="nit" placeholder="Introduzca el nit de la emprea a la que representa" required="" autofocus="">
-  </div> 
-              
-               <div class="form-group">
-    <label for="ejemplo_email_1">Cantidad</label>
-       <input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Introduzca la cantidad de valores a transar" required="" autofocus="">
-  </div> 
-              
-               <div class="form-group">
-    <label for="ejemplo_email_1">Precio</label>
-       <input type="text" class="form-control" id="precio" name="precio" placeholder="Introduzca el precio por cada unidad de valor" required="" autofocus="">
-  </div> 
-    
-  <button type="submit" class="btn btn-default">Enviar</button>
-</form>
+           
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Filtrar</button>
+            </form>
+          <br>
+          <br>
           
-          <form role="form" action="ServletOrdenarOperacionBursatil.htm" method="get">
-      <h3>Compra por cantidad</h3>
-  <div class="form-group">
-    <label for="ejemplo_email_1">Email inversionista</label>
-    <input type="email" class="form-control" id="emailOferente" name="emailInversionista"
-           placeholder="Introduce el email">
-  </div>
-  <div class="form-group">
-    <label for="ejemplo_email_1">Email intermediario</label>
-    <input type="email" class="form-control" id="emailIntermediario" name="emailIntermediario"
-           placeholder="Introduce el email">
-  </div>
-             
-    <div class="form-group">
-    <label for="ejemplo_email_1">Tipo de operacion</label>
-    <select class="form-control" name="tipoOperacion" >
-           <option value="" disabled selected>Seleccione el tipo de operacion</option>
-          <option value="COMPRA">Compra</option>
-         
-        </select>
-  </div>   
-    
-  <div class="form-group">
-    <label for="ejemplo_email_1">Tipo del valor</label>
-    <select class="form-control" name="tipoValor" >
-           <option value="" disabled selected>Seleccione el tipo de valor a transar</option>
+          <div class="row placeholders">
+        
+          </div>
+  <form role="form" action="ServletConsultasIt4.htm" method="get">
+          <h3 class="sub-header">Consultar Portafolios</h3>
+          <div class="table-responsive">
+              <br>
+              <label for="ejemplo_email_1">Tipo del valor</label>
+    <select class="form-control" name="tipoValorConsultarPortafolios" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
           <option value="Accion" >Accion</option>
           <option value="BonoPriv">Bono privado</option>
           <option value="BonoPub">Bono público</option>
           <option value="Certificado">Certificado</option>
           <option value="Titulo">Titulo de participacion</option>
         </select>
-  </div>           
-  
-  <div class="form-group">
-    <label for="ejemplo_email_1">Nit</label>
-       <input type="text" class="form-control" id="nit" name="nit" placeholder="Introduzca el nit de la emprea a la que representa" required="" autofocus="">
-  </div> 
+              <br>
+               <label for="ejemplo_email_1">Valor</label>
+       <input type="text" class="form-control" id="valor" name="valorConsultarPortafolios" placeholder="Introduzca la cantidad del valor" required="" autofocus="">
               
-               <div class="form-group">
-    <label for="ejemplo_email_1">Cantidad</label>
-       <input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Introduzca la cantidad de valores a transar" required="" autofocus="">
-  </div> 
-             
-  <button type="submit" class="btn btn-default">Enviar</button>
-</form>
-          <form role="form" action="ServletOrdenarOperacionBursatil.htm" method="get">
-      <h3>Compra por precio</h3>
-  <div class="form-group">
-    <label for="ejemplo_email_1">Email inversionista</label>
-    <input type="email" class="form-control" id="emailOferente" name="emailInversionista"
-           placeholder="Introduce el email">
-  </div>
-  <div class="form-group">
-    <label for="ejemplo_email_1">Email intermediario</label>
-    <input type="email" class="form-control" id="emailIntermediario" name="emailIntermediario"
-           placeholder="Introduce el email">
-  </div>
-             
-    <div class="form-group">
-    <label for="ejemplo_email_1">Tipo de operacion</label>
-    <select class="form-control" name="tipoOperacion" >
-           <option value="" disabled selected>Seleccione el tipo de operacion</option>
-          <option value="COMPRA">Compra</option>
+           
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Filtrar</button>
+         </form>
+          <br>
+          <br>
+          <div class="row placeholders">
+        
+          </div>
+  <form role="form" action="ServletConsultasIt4.htm" method="get">
+         
+      
+      <h3 class="sub-header">Consultar Movimiento de valores 1</h3>
+          <div class="table-responsive">
+                   <br>
+                <label for="ejemplo_email_1">Fecha inferior</label>
+       <input type="date" class="form-control" id="id_oferente" name="fechaInferiorMovimiento1" required="" autofocus="">
+       <br>
+          
+               <label for="ejemplo_email_1">Fecha superior</label>
+       <input type="date" class="form-control" id="id_oferente" name="fechaSuperiorMovimiento1" required="" autofocus="">
+           
+       <br>
+               <label for="ejemplo_email_1">Tipo de Rentabilidad</label>
+    <select class="form-control" name="tipoRentabilidadMovimiento1" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
+          <option value="rentaFijaTerminoFijo" >Renta fija termino fijo</option>
+          <option value="rentaFijaTerminoIndefinido">Renta fija termino infefinido</option>
+          <option value="rentaVariableTerminoFijo">Renta variable termino fijo</option>
+          <option value="rentaVariableTerminoIndefinido">Renta variable termino indefinido</option>
          
         </select>
-  </div>   
-    
-  <div class="form-group">
-    <label for="ejemplo_email_1">Tipo del valor</label>
-    <select class="form-control" name="tipoValor" >
-           <option value="" disabled selected>Seleccione el tipo de valor a transar</option>
+                <br>
+              <label for="ejemplo_email_1">Tipo del valor</label>
+    <select class="form-control" name="tipoValorMovimiento1" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
           <option value="Accion" >Accion</option>
           <option value="BonoPriv">Bono privado</option>
           <option value="BonoPub">Bono público</option>
           <option value="Certificado">Certificado</option>
           <option value="Titulo">Titulo de participacion</option>
         </select>
-  </div>           
-  
-  <div class="form-group">
-    <label for="ejemplo_email_1">Nit</label>
-       <input type="text" class="form-control" id="nit" name="nit" placeholder="Introduzca el nit de la emprea a la que representa" required="" autofocus="">
-  </div> 
-              
-             
-              
-               <div class="form-group">
-    <label for="ejemplo_email_1">Precio</label>
-       <input type="text" class="form-control" id="precio" name="precioCompra" placeholder="El precio total de la compra" required="" autofocus="">
-  </div> 
-    
-  <button type="submit" class="btn btn-default">Enviar</button>
-</form>
+              <br>
+           
+           
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Filtrar</button>
+  </form>
+          <br>
+          <br>
+          <div class="row placeholders">
+        
+          </div>
+  <form role="form" action="ServletConsultasIt4.htm" method="get">
+          <h3 class="sub-header">Consultar movimiento de valores 2</h3>
+          <div class="table-responsive">
+                 <br>
+                <label for="ejemplo_email_1">Fecha inferior</label>
+       <input type="date" class="form-control" id="id_oferente" name="fechaInferiorMovimiento2" required="" autofocus="">
+       <br>
+          
+               <label for="ejemplo_email_1">Fecha superior</label>
+       <input type="date" class="form-control" id="id_oferente" name="fechaSuperiorMovimiento2" required="" autofocus="">
+           
+       <br>
+               <label for="ejemplo_email_1">Tipo de Rentabilidad</label>
+    <select class="form-control" name="tipoRentabilidadMovimiento2" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
+          <option value="rentaFijaTerminoFijo" >Renta fija termino fijo</option>
+          <option value="rentaFijaTerminoIndefinido">Renta fija termino infefinido</option>
+          <option value="rentaVariableTerminoFijo">Renta variable termino fijo</option>
+          <option value="rentaVariableTerminoIndefinido">Renta variable termino indefinido</option>
          
+        </select>
+                <br>
+              <label for="ejemplo_email_1">Tipo del valor</label>
+    <select class="form-control" name="tipoValorMovimiento2" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
+          <option value="Accion" >Accion</option>
+          <option value="BonoPriv">Bono privado</option>
+          <option value="BonoPub">Bono público</option>
+          <option value="Certificado">Certificado</option>
+          <option value="Titulo">Titulo de participacion</option>
+        </select>
+              <br>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Filtrar</button>
+  </form>
+          <br>
+          <br>
+          <div class="row placeholders">
+        
+          </div>
+ 
+          <br>
+          <br>
+        </div>
+          
+      </div>
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

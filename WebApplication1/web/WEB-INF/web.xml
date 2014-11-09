@@ -98,6 +98,11 @@ Autor: Pablo Barvo - 08-Feb-2006
   <servlet-class>Servlets.ServletConsultaIT3</servlet-class>
  </servlet>
  
+  <servlet>
+  <servlet-name>ServletConsultaIT4</servlet-name>
+  <servlet-class>Servlets.ServletConsultasIt4</servlet-class>
+ </servlet>
+ 
  
  <!-- MAPPING -->
  
@@ -181,6 +186,10 @@ Autor: Pablo Barvo - 08-Feb-2006
   <url-pattern>/ServletConsultaIT3.htm</url-pattern>
  </servlet-mapping>
  
+  <servlet-mapping>
+  <servlet-name>ServletConsultaIT4</servlet-name>
+  <url-pattern>/ServletConsultasIt4.htm</url-pattern>
+ </servlet-mapping>
  
 	
    

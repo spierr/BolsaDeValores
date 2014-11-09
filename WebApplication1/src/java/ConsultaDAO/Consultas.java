@@ -504,6 +504,33 @@ public class Consultas {
               return r;
     }
     
+      public static ResultSet consultarMovimientosDeValores1(conexionDB x,String fecha1,String fecha2 , String nomValor,String precioUnidad,String TipoRentabilidad, String email ) {
+         ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC \n" +
+"where fecha  between  to_date('"+fecha1+"','yyyy-mm-dd') and to_date('"+fecha2+"','yyyy-mm-dd') \n" +
+"and (NOM_VALOR='"+nomValor+"' or precio_unidad="+precioUnidad+" or TIPO_RENTABILIDAD="+TipoRentabilidad+" or email_com='"+email+"')");
+    
+              return r;
+    }
+      public static ResultSet consultarValores2(conexionDB x,String nomValor , String nit_valor) {
+         ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC WHERE NOM_VALOR='"+nomValor+"' AND NIT_VALOR="+nit_valor ) ;
+    
+              return r;
+    }
+      public static ResultSet consultaPortafolios(conexionDB x,String nomValor,String precio) {
+         ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC WHERE NOM_VALOR='"+nomValor+"' AND PRECIO_UNIDAD>"+precio);
+    
+              return r;
+              
+    }
+      public static ResultSet consultarMovimientosDeValores2(conexionDB x,String fecha1,String fecha2 , String nomValor,String precioUnidad,String TipoRentabilidad, String email) {
+         ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC \n" +
+"where fecha  between  to_date('"+fecha1+"','yyyy-mm-dd') and to_date('"+fecha2+"','yyyy-mm-dd') \n" +
+"and (NOM_VALOR='"+nomValor+"' or precio_unidad="+precioUnidad+" or TIPO_RENTABILIDAD="+TipoRentabilidad+" or email_com='"+email+"')");
+    
+              return r;
+    }
+      
+      
     public static ResultSet darValoresOFerentes(conexionDB x,String email)
     {
         
