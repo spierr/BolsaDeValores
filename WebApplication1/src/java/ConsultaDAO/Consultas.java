@@ -22,6 +22,18 @@ import org.apache.taglibs.standard.lang.jstl.Coercions;
  */
 public class Consultas {
     
+    
+    public static  ResultSet guardado ;
+    
+    public  static void cambiarguardado(ResultSet nuevo)
+    {
+        guardado=nuevo ;
+    }
+    public static ResultSet darGuardado()
+    {
+        return guardado ;
+    }
+    
     public static ArrayList consultarSolicitudesPrimasriasPorIntermediario(conexionDB x, String email) throws SQLException         
     {
         ResultSet r= x.consultar("SELECT * FROM SOLICITUDES_COMPRA_PRIM WHERE EMAIL_INT_VEN ='"+email+"'");
@@ -505,7 +517,8 @@ public class Consultas {
     }
     
       public static ResultSet consultarMovimientosDeValores1(conexionDB x,String fecha1,String fecha2 , String nomValor,String precioUnidad,String TipoRentabilidad, String email ) {
-         ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC \n" +
+       
+          ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC \n" +
 "where fecha  between  to_date('"+fecha1+"','yyyy-mm-dd') and to_date('"+fecha2+"','yyyy-mm-dd') \n" +
 "and (NOM_VALOR='"+nomValor+"' or precio_unidad="+precioUnidad+" or TIPO_RENTABILIDAD="+TipoRentabilidad+" or email_com='"+email+"')");
     
