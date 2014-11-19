@@ -518,9 +518,36 @@ public class Consultas {
     
       public static ResultSet consultarMovimientosDeValores1(conexionDB x,String fecha1,String fecha2 , String nomValor,String precioUnidad,String TipoRentabilidad, String email ) {
        
-          ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC \n" +
+          
+          String nomValorP="";
+           String precioUnidadP="";
+            String tipoRentabilidadP="";
+             String emailP="";
+             
+             if(nomValor!= null && !nomValor.equals(""))
+             {
+                 nomValorP="and NOM_VALOR='"+nomValor+"' " ;
+             }
+              if(precioUnidad!=null && !precioUnidad.equals(""))
+             {
+                 precioUnidadP="and precio_unidad="+precioUnidad + " " ;
+             }
+               if(TipoRentabilidad!=null && !TipoRentabilidad.equals(""))
+             {
+                tipoRentabilidadP="and TIPO_RENTABILIDAD="+TipoRentabilidad  +" " ;
+             }
+                if(email!= null && !email.equals(""))
+             {
+                 emailP="and  email_com='"+email+"' " ;
+             }
+           
+          String con="select * from OPERACIONES_REGISTRADAS_SEC \n" +
 "where fecha  between  to_date('"+fecha1+"','yyyy-mm-dd') and to_date('"+fecha2+"','yyyy-mm-dd') \n" +
-"and (NOM_VALOR='"+nomValor+"' or precio_unidad="+precioUnidad+" or TIPO_RENTABILIDAD="+TipoRentabilidad+" or email_com='"+email+"')");
+" "+nomValorP + precioUnidadP + tipoRentabilidadP+emailP;
+          System.out.println("select * from OPERACIONES_REGISTRADAS_SEC \n" +
+"where fecha  between  to_date('"+fecha1+"','yyyy-mm-dd') and to_date('"+fecha2+"','yyyy-mm-dd') \n" +
+" "+nomValorP + precioUnidadP + tipoRentabilidadP+emailP);
+          ResultSet r = x.consultar(con);
     
               return r;
     }
@@ -536,12 +563,52 @@ public class Consultas {
               
     }
       public static ResultSet consultarMovimientosDeValores2(conexionDB x,String fecha1,String fecha2 , String nomValor,String precioUnidad,String TipoRentabilidad, String email) {
-         ResultSet r = x.consultar("select * from OPERACIONES_REGISTRADAS_SEC \n" +
+        String nomValorP="";
+           String precioUnidadP="";
+            String tipoRentabilidadP="";
+             String emailP="";
+             
+             if(nomValor!= null && !nomValor.equals(""))
+             {
+                 nomValorP="and NOM_VALOR !='"+nomValor+"' " ;
+             }
+             
+              if(precioUnidad!=null && !precioUnidad.equals(""))
+             {
+                 precioUnidadP="and precio_unidad !="+precioUnidad + " " ;
+             }
+               if(TipoRentabilidad!=null && !TipoRentabilidad.equals(""))
+             {
+                tipoRentabilidadP="and TIPO_RENTABILIDAD !="+TipoRentabilidad  +" " ;
+             }
+                if(email!= null && !email.equals(""))
+             {
+                 emailP="and  email_com!='"+email+"' " ;
+             }
+           
+          String con="select * from OPERACIONES_REGISTRADAS_SEC \n" +
 "where fecha  between  to_date('"+fecha1+"','yyyy-mm-dd') and to_date('"+fecha2+"','yyyy-mm-dd') \n" +
-"and (NOM_VALOR='"+nomValor+"' or precio_unidad="+precioUnidad+" or TIPO_RENTABILIDAD="+TipoRentabilidad+" or email_com='"+email+"')");
+" "+nomValorP + precioUnidadP + tipoRentabilidadP+emailP;
+          System.out.println("select * from OPERACIONES_REGISTRADAS_SEC \n" +
+"where fecha  between  to_date('"+fecha1+"','yyyy-mm-dd') and to_date('"+fecha2+"','yyyy-mm-dd') \n" +
+" "+nomValorP + precioUnidadP + tipoRentabilidadP+emailP);
+          ResultSet r = x.consultar(con);
     
               return r;
     }
+      
+      public static ResultSet darValoresDinamicos(conexionDB x ,String Fecha1,String Fecha2)
+      {
+          ResultSet rta = x.consultar("select count (*) , nit_valor , nom_valor \n" +
+"from ( \n" +
+"Select *  from operaciones_registradas_sec where  fecha  between  to_date('"+Fecha1+"','yyyy-mm-dd') and to_date('"+Fecha2+"','yyyy-mm-dd')\n" +
+")\n" +
+"group by (nit_valor,nom_valor) order by COUNT(*) DESC  \n" +
+"\n" +
+"");
+        
+        return rta;
+      }
       
       
     public static ResultSet darValoresOFerentes(conexionDB x,String email)
