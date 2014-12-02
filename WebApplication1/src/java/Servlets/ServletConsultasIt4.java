@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Colas.Colas;
 import ConsultaDAO.Consultas;
 import Fachada.conexionDB;
 import java.io.IOException;
@@ -219,12 +220,10 @@ public class ServletConsultasIt4 extends  HttpServlet{
             private void imprimirHtmlMovimientos(conexionDB x , PrintWriter respuesta , String nomValor , String rentabilidad , String emailComprador,String fechaSuperior , String fechaInferior)
             {
                 
-                respuesta.write(nomValor);
-                respuesta.write(rentabilidad);
-                respuesta.write(emailComprador);
-                respuesta.write(fechaInferior);
-                respuesta.write(fechaSuperior);
-                
+              Colas cola = Colas.darInstancia() ; 
+              
+              cola.consultarMovimiento(nomValor, Integer.parseInt(rentabilidad), emailComprador, fechaInferior, fechaSuperior);
+              
                 
                 
                 
@@ -237,6 +236,9 @@ public class ServletConsultasIt4 extends  HttpServlet{
              
              respuesta.write(correoELiminar);
              
+            Colas  estilo = Colas.darInstancia() ; 
+            
+            estilo.retirarIntermediario(correoELiminar);
              
              
              
@@ -1159,7 +1161,10 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
                  {
                      
                      
-                     
+                    Colas  style =  Colas.darInstancia() ; 
+                    
+                    style.valoresMasDinamicos(fechaInferir, fechaSuperior);
+                            
                      
                      
                        respuesta.write( "<!DOCTYPE html>\r\n" );
