@@ -79,6 +79,9 @@ public class ServletConsultasIt4 extends  HttpServlet{
                             String nitRecomponerPortafolios = request.getParameter("nitRecomponerPortafolios");
                             String nombreValor = request.getParameter("valorRecomponer");
                             String portafolio = request.getParameter("portafolioRecomponer");
+                             String nitNuevoRecomponer = request.getParameter("nitRecomponerPortafoliosNuevo");
+                               String valorNuevoRecomponer = request.getParameter("valorRecomponerNuevo");
+                            
                
                               
                               // atributos  retirar intermediario
@@ -168,7 +171,16 @@ public class ServletConsultasIt4 extends  HttpServlet{
                         
                     }
                     
+                    else if (emailRetirar!=null)
+                    {
+                        imprimirhtmlEliminarIntermediario(x, respuesta, emailRetirar);
+                    }
                     
+                    else if (fechaInferiorMovimientos!=null && fechaSuperiorMovimientos!=null)
+                    {
+                        imprimirHtmlMovimientos(x, respuesta, nomValorMovimientos,rentabilidadMovimientos, emailMovimientos, fechaSuperiorMovimientos, fechaInferiorMovimientos);
+                    }
+                        
                     
                          
                     else{
@@ -204,14 +216,31 @@ public class ServletConsultasIt4 extends  HttpServlet{
             
             
             
-             private void imprimirhtmlDinamicos(conexionDB x , String fechaSuperirorDinamicos , String fechaInferiorDinamico)
-             {
-                 
-                 
-                 
-                 
-             }
+            private void imprimirHtmlMovimientos(conexionDB x , PrintWriter respuesta , String nomValor , String rentabilidad , String emailComprador,String fechaSuperior , String fechaInferior)
+            {
+                
+                respuesta.write(nomValor);
+                respuesta.write(rentabilidad);
+                respuesta.write(emailComprador);
+                respuesta.write(fechaInferior);
+                respuesta.write(fechaSuperior);
+                
+                
+                
+                
+                
+            }
             
+         public void imprimirhtmlEliminarIntermediario(conexionDB x , PrintWriter respuesta , String correoELiminar)
+         {
+             
+             
+             respuesta.write(correoELiminar);
+             
+             
+             
+             
+         }
             
             
              private void imprimirhtmlConsultarMovimientosDeValores1(conexionDB x ,PrintWriter respuesta ,String fecha1,String fecha2 , String nomValor,String precioUnidad,String TipoRentabilidad, String email)
@@ -1129,6 +1158,10 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
                  private void imprimirHtmlDinamico(conexionDB x ,PrintWriter respuesta , String fechaInferir , String fechaSuperior)
                  {
                      
+                     
+                     
+                     
+                     
                        respuesta.write( "<!DOCTYPE html>\r\n" );
 respuesta.write( "<!-- saved from url=(0044)http://getbootstrap.com/examples/dashboard/? -->\r\n" );
 respuesta.write( "<html lang=\"en\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n" );
@@ -1226,6 +1259,12 @@ respuesta.write( "                  <th>Valor</th>\r\n" );
 
 
   try {
+      
+      
+       
+      
+      
+      
                ResultSet rta1 = Consultas.darValoresDinamicos(x, fechaInferir, fechaSuperior);
               
                int numero =1 ;
