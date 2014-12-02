@@ -261,7 +261,8 @@ and open the template in the editor.
           
           
           
-          
+            <br>
+              <br>
           
           
           
@@ -285,6 +286,193 @@ and open the template in the editor.
           <br>
           <button type="submit" class="btn btn-default">Filtrar</button>
   </form>
+          
+            <br>
+              <br>
+          
+          
+          
+          
+          
+             <form role="form" action="ServletConsultasIt4.htm" method="get">
+           <h3 class="sub-header">Movimientos</h3>
+          <div class="table-responsive">
+              
+                   <br>
+                   
+                    <label for="ejemplo_email_1">NomValor</label>
+      
+       
+       <select class="form-control" name="valorMovimientos" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
+          <option value="Accion" >Accion</option>
+          <option value="BonoPriv">Bono privado</option>
+          <option value="BonoPub">Bono público</option>
+          <option value="Certificado">Certificado</option>
+          <option value="Titulo">Titulo de participacion</option>
+        </select>
+       
+       <br>
+       
+       
+       
+       <label for="ejemplo_email_1">Rentabilidad</label>
+       
+       
+        <select class="form-control" name="rentabilidadMovimientos" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
+          <option value="rentaFijaTerminoFijo" >Renta fija termino fijo</option>
+          <option value="rentaFijaTerminoIndefinido">Renta fija termino infefinido</option>
+          <option value="rentaVariableTerminoFijo">Renta variable termino fijo</option>
+          <option value="rentaVariableTerminoIndefinido">Renta variable termino indefinido</option>
+         
+        </select>
+       <br>
+           
+       
+       
+       <label for="ejemplo_email_1">Email Comprador</label>
+       <input type="text" class="form-control" id="valor" name="emailMovimientos" placeholder="Introduzca la cantidad del valor" autofocus="">
+       <br>
+       
+       
+       
+                   
+                <label for="ejemplo_email_1">Fecha inferior</label>
+       <input type="date" class="form-control" id="id_oferente" name="fechaInferiorMovimientos" required="" autofocus="">
+       <br>
+          
+               <label for="ejemplo_email_1">Fecha superior</label>
+       <input type="date" class="form-control" id="id_oferente" name="fechaSuperiorMovimientos" required="" autofocus="">
+           
+       
+              <br>
+           
+           
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Filtrar</button>
+  </form>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+             <br>
+               <br>
+             <form role="form" action="ServletConsultasIt4.htm" method="get">
+           <h3 class="sub-header">Retirar Intermediario</h3>
+          <div class="table-responsive">
+              
+                   <br>
+                   
+                    <label for="ejemplo_email_1">Correo</label>
+       <input type="text" class="form-control" id="valor" name="emailRetirar" placeholder="Introduzca la cantidad del valor" autofocus="">
+       <br>
+       
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Filtrar</button>
+  </form>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+            <br>
+              <br>
+            <form role="form" action="ServletConsultasIt4.htm" method="get">
+           <h3 class="sub-header">Recomponer Portafolio</h3>
+          <div class="table-responsive">
+              
+                   <br>
+                   
+                   <label for="ejemplo_email_1">Tipo de valor</label>
+                   <br>
+                    <select class="form-control" name="valorRecomponer" >
+           <option value="" disabled selected>Seleccione el tipo de valor a filtrar</option>
+          <option value="Accion" >Accion</option>
+          <option value="BonoPriv">Bono privado</option>
+          <option value="BonoPub">Bono público</option>
+          <option value="Certificado">Certificado</option>
+          <option value="Titulo">Titulo de participacion</option>
+        </select>
+       
+                   
+                   <br>
+                   
+                   <br>  
+                   
+                   
+                    <label for="ejemplo_email_1">Correo inversionista</label>
+       <input type="text" class="form-control" id="valor" name="emailRecomponer" placeholder="Introduzca la cantidad del valor" autofocus="">
+       <br>
+       
+                   
+                    <label for="ejemplo_email_1">Nit</label>
+       <input type="text" class="form-control" id="valor" name="nitRecomponerPortafolios" placeholder="Introduzca la cantidad del valor" autofocus="">
+       <br>
+       
+       
+          <br>
+                   
+                   <label for="ejemplo_email_1">id portafolio</label>
+                   <br>
+                    <select class="form-control" name="portafolioRecomponer" >
+           <option value="" disabled selected>Seleccione el tipo de portafolio</option>
+          <option value="1" >Alto</option>
+          <option value="2">Medio</option>
+          <option value="3">Bajo</option>
+         
+        </select>
+       
+                   
+                   <br>
+                   
+       
+       
+                   
+          
+       
+       
+       
+       
+          </div>
+         
+          <button type="submit" class="btn btn-default">Filtrar</button>
+  </form>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           
           
           

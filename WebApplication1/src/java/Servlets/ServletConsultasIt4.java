@@ -71,8 +71,31 @@ public class ServletConsultasIt4 extends  HttpServlet{
                               
                            String fechaInferiorDinamico = request.getParameter( "fechaInferiorDinamicos" );
                             String fechaSuperiorDinamico = request.getParameter( "fechaSuperiorDinamicos" );
+                            
+                            
+                            // atributos recomponer portafolios
+                            
+                            String emailRecomponerPortafolio = request.getParameter("emailRecomponer");
+                            String nitRecomponerPortafolios = request.getParameter("nitRecomponerPortafolios");
+                            String nombreValor = request.getParameter("valorRecomponer");
+                            String portafolio = request.getParameter("portafolioRecomponer");
+               
                               
-                              
+                              // atributos  retirar intermediario
+                            
+                            String emailRetirar = request.getParameter("emailRetirar");
+                            
+                            //atributos Movimientos
+                            
+                            String nomValorMovimientos = request.getParameter("valorMovimientos");
+                            
+                            String rentabilidadMovimientos = request.getParameter("rentabilidadMovimientos");
+                            
+                            String emailMovimientos = request.getParameter("emailMovimientos");
+                            
+                            String fechaInferiorMovimientos = request.getParameter("fechaInferiorMovimientos");
+                            
+                            String fechaSuperiorMovimientos = request.getParameter("fechaSuperiorMovimientos");
                               
                     
                   //metodos   
@@ -139,6 +162,11 @@ public class ServletConsultasIt4 extends  HttpServlet{
                         imprimirHtmlDinamico(x,respuesta,fechaInferiorDinamico,fechaSuperiorDinamico);
                       }  
                     
+                    else if(fechaInferiorDinamico!=null && fechaSuperiorDinamico!=null)
+                    {
+                        imprimirHtmlDinamico(x, respuesta, fechaInferiorDinamico, fechaSuperiorDinamico);
+                        
+                    }
                     
                     
                     
@@ -173,6 +201,16 @@ public class ServletConsultasIt4 extends  HttpServlet{
                  
 	    	
 	    }
+            
+            
+            
+             private void imprimirhtmlDinamicos(conexionDB x , String fechaSuperirorDinamicos , String fechaInferiorDinamico)
+             {
+                 
+                 
+                 
+                 
+             }
             
             
             
