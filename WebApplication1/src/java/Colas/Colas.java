@@ -24,8 +24,8 @@ public class Colas extends Thread{
     private static Colas cola;
     
     protected Colas()
-    {
-         cola.start();
+    { darInstancia().start();
+         
     }
     public static    Colas darInstancia(){
     if(cola==null)
