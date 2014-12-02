@@ -21,13 +21,13 @@ import java.util.ArrayList;
  */
 public class Colas extends Thread{
     private final static String QUEUE_NAME = "CF";
-    private Colas cola;
+    private static Colas cola;
     
-    private Colas()
+    protected Colas()
     {
          cola.start();
     }
-    public Colas darInstancia(){
+    public static    Colas darInstancia(){
     if(cola==null)
     {
         cola = new Colas();
@@ -114,6 +114,7 @@ public class Colas extends Thread{
     }
 
     private void pregunta3(String resp) {
+//        Consultas.consultarMovimientosDeValores1(null, FECHA1, FECHA2, NOMVALOR, FECHA2, FECHA2, FECHA2);  
     }
 
     private void pregunta4(String resp) {
@@ -137,7 +138,7 @@ public class Colas extends Thread{
     }
 
     public ArrayList<ValoresDeInversionistas> consultarMovimiento(String NOMVALOR, int RENTABILIDAD, String EMAILCOMPRADOR, String FECHA1, String FECHA2) {
-        //Consultas.consultarSolicitudesPrimasriasPorIntermediario(null, FECHA2);  
+        
         return null;
     }
 

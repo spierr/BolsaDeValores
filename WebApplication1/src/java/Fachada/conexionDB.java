@@ -6,6 +6,7 @@
 package Fachada;
 
 
+import Colas.Colas;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -28,6 +29,7 @@ public class conexionDB {
             public conexionDB()
             {
                 conexion = conexion() ;
+                
             }
     
             //Este metodo hace la conexion a la base de dato
