@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package Colas;
+import ConsultaDAO.Consultas;
+import Fachada.conexionDB;
 import VOS.ValoresDeInversionistas;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.QueueingConsumer;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +25,7 @@ public class Colas extends Thread{
     
     private Colas()
     {
-           
+         cola.start();
     }
     public Colas darInstancia(){
     if(cola==null)
@@ -33,10 +37,7 @@ public class Colas extends Thread{
     @Override
     public void run()
     {
-        
-    }       
-    public void escuchar(){
-        try {
+         try {
             ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
 		factory.setUsername("guest");
@@ -75,12 +76,36 @@ public class Colas extends Thread{
              System.out.println("Error reciviendo ");
              e.printStackTrace();
         }
-    }
+    }       
 
     private void pregunta1(String resp) {
    }
 
     private void pregunta2(String resp) {
+         conexionDB x = new conexionDB();
+            x.setAutoCommit(false);
+            String correoEliminar= resp;
+                       
+                    try {
+                x.actualizarCrear("UPDATE INTERMEDIARIO SET ESTA_ACTIVO = 'No' WHERE EMAIL = '"+correoEliminar+"'");
+                    ResultSet n = x.consultar("SELECT * FROM INTERMEDIARIO WHERE ESTA_ACTIVO='Si'");
+                    String correoNuevo= n.getNString("EMAIL");
+                    x.actualizarCrear("UPDATE OPERACIONES_EN_ESPERA_PRIM SET EMAIL_INTERMEDIARIO = '"+correoNuevo+"' WHERE EMAIL_INTERMEDIARIO = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE OPERACIONES_EN_ESPERA_SEC SET EMAIL_INTER = '"+correoNuevo+"' WHERE EMAIL_INTER = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE SOLICITUDES_COMPRA_PRIM SET EMAIL_INT_COM  = '"+correoNuevo+"' WHERE EMAIL_INT_COM = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE SOLICITUDES_COMPRA_PRIM SET EMAIL_INT_VEN = '"+correoNuevo+"' WHERE EMAIL_INT_VEN = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE SOLICITUDES_COMPRA_SEC SET EMAIL_INT_COM = '"+correoNuevo+"' WHERE EMAIL_INT_COM = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE SOLICITUDES_COMPRA_SEC SET EMAIL_INT_VEN = '"+correoNuevo+"' WHERE EMAIL_INT_VEN = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE INVERSIONISTA SET EMAIL_INTE = '"+correoNuevo+"' WHERE EMAIL_INTE = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE OFERENTE SET EMAIL_INTE = '"+correoNuevo+"' WHERE EMAIL_INTE = '"+correoEliminar+"'");
+                    x.commit();
+                    sender("R2;"+correoNuevo);
+                    
+        } catch (Exception e) {
+             System.out.println("Error eliminando ");
+             e.printStackTrace();
+        }
+    
     }
 
     private void pregunta3(String resp) {
@@ -90,20 +115,101 @@ public class Colas extends Thread{
     }
     //este es el metodo indio del split del boolean y el numero
     public String recomponerPortafolio(String EMAILINVER, int IDPORTAFOLIO, ArrayList<ValoresDeInversionistas> valores) {
+        conexionDB x= new conexionDB();
+        x.setAutoCommit(false);
+        ResultSet r = x.consultar("");
+        
+        
         return null;
     }
 
     public String retirarIntermediario(String emailIntermediario) {
-        return null;
+         
+                return null;
     }
 
     public ArrayList<ValoresDeInversionistas> consultarMovimiento(String NOMVALOR, int RENTABILIDAD, String EMAILCOMPRADOR, String FECHA1, String FECHA2) {
-        return null;    
+        //Consultas.consultarSolicitudesPrimasriasPorIntermediario(null, FECHA2);  
+        return null;
     }
 
     public ArrayList<ValoresDeInversionistas> valoresMasDinamicos(String FECHA1, String FECHA2) {
-        return null;
+       String resp= reciver("");
+       return null;
     }
+    
+  
+    private String reciver(String enviar){
+         try {
+             ConnectionFactory factory = new ConnectionFactory();
+                factory.setHost("localhost");
+		factory.setPort(5672);
+		factory.setUsername("brochero");
+		factory.setPassword("admin123");
+		
+		Connection connection = factory.newConnection();
+	    Channel channel = connection.createChannel();
+	    
+	   
+	    channel.queueDeclare("SC", false, false, false, null);
+		
+	    channel.basicPublish("", "SC", null, enviar.getBytes());
+	    System.out.println(" [x] Sent '" + enviar + "'");
+	    channel.close();
+    	connection.close();
+        } catch (Exception e) {
+             System.out.println("Error enviando ");
+             e.printStackTrace();
+        }
+         try {
+            ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("localhost");
+		factory.setUsername("guest");
+		factory.setPassword("admin123");
+		Connection connection = factory.newConnection();
+		Channel channel = connection.createChannel();
+		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+		QueueingConsumer consumer = new QueueingConsumer(channel);
+		channel.basicConsume(QUEUE_NAME, true, consumer);
+		while (true) {
+			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+			String message = new String(delivery.getBody());
+			System.out.println(" [x] Received '" + message + "'");
+                        return message;
+                        
+		}
+        } catch (Exception e) {
+             System.out.println("Error reciviendo ");
+             e.printStackTrace();
+        }
+        return "Error";
+         
+    }
+
+    private void sender(String string) {
+    try {
+             ConnectionFactory factory = new ConnectionFactory();
+                factory.setHost("localhost");
+		factory.setPort(5672);
+		factory.setUsername("brochero");
+		factory.setPassword("admin123");
+		
+		Connection connection = factory.newConnection();
+	    Channel channel = connection.createChannel();
+	    
+	   
+	    channel.queueDeclare("SC", false, false, false, null);
+		
+	    channel.basicPublish("", "SC", null, string.getBytes());
+	    System.out.println(" [x] Sent '" + string + "'");
+	    channel.close();
+    	connection.close();
+        } catch (Exception e) {
+             System.out.println("Error enviando ");
+             e.printStackTrace();
+        } }
+    
     
     
 }
