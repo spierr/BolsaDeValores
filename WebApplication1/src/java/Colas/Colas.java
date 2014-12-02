@@ -20,14 +20,14 @@ import java.util.ArrayList;
  * @author Cristian
  */
 public class Colas extends Thread{
-    private final static String QUEUE_NAME = "CF";
+    private final static String IP = "localhost";
     private static Colas cola;
     
     protected Colas()
-    { darInstancia().start();
+    { 
          
     }
-    public static    Colas darInstancia(){
+    public static   Colas darInstancia(){
     if(cola==null)
     {
         cola = new Colas();
@@ -44,10 +44,10 @@ public class Colas extends Thread{
 		factory.setPassword("admin123");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
-		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		channel.queueDeclare("CF", false, false, false, null);
 		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 		QueueingConsumer consumer = new QueueingConsumer(channel);
-		channel.basicConsume(QUEUE_NAME, true, consumer);
+		channel.basicConsume("CF", true, consumer);
 		while (true) {
 			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 			String message = new String(delivery.getBody());
@@ -170,9 +170,9 @@ public class Colas extends Thread{
     private String reciver(String enviar){
          try {
              ConnectionFactory factory = new ConnectionFactory();
-                factory.setHost("localhost");
+                factory.setHost(IP);
 		factory.setPort(5672);
-		factory.setUsername("brochero");
+		factory.setUsername("valencia");
 		factory.setPassword("admin123");
 		
 		Connection connection = factory.newConnection();
@@ -196,10 +196,10 @@ public class Colas extends Thread{
 		factory.setPassword("admin123");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
-		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		channel.queueDeclare("CF", false, false, false, null);
 		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 		QueueingConsumer consumer = new QueueingConsumer(channel);
-		channel.basicConsume(QUEUE_NAME, true, consumer);
+		channel.basicConsume("CF", true, consumer);
 		while (true) {
 			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 			String message = new String(delivery.getBody());
@@ -220,7 +220,7 @@ public class Colas extends Thread{
              ConnectionFactory factory = new ConnectionFactory();
                 factory.setHost("localhost");
 		factory.setPort(5672);
-		factory.setUsername("brochero");
+		factory.setUsername("valencia");
 		factory.setPassword("admin123");
 		
 		Connection connection = factory.newConnection();
@@ -236,7 +236,8 @@ public class Colas extends Thread{
         } catch (Exception e) {
              System.out.println("Error enviando ");
              e.printStackTrace();
-        } }
+        } 
+    }
     
     
     
