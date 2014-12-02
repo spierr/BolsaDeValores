@@ -111,6 +111,16 @@ public class ServletConsultasIt4 extends  HttpServlet{
                             conexionDB x = new conexionDB();
                             
                             
+                            if(emailRecomponerPortafolio!=null)
+                            {
+                                imprimirRecomponer(x, respuesta, emailRecomponerPortafolio, nitRecomponerPortafolios, nombreValor, nitRecomponerPortafolios, nitNuevoRecomponer, valorNuevoRecomponer);
+                                
+                                
+                            }
+                                
+                            
+                            
+                            
                             if(estilo!=null)
                             {
                                 paginadoConsultarValores2(x, respuesta);
@@ -1587,7 +1597,7 @@ respuesta.write( "<div id=\"global-zeroclipboard-html-bridge\" class=\"global-ze
                  
                    
                             
-                            public void imprimirMovimientos(conexionDB x , PrintWriter respuesta , String emailRecomponer , String nitRecomponerPortafolio, String valorRecomponer, String portafolioRecomponer , String nitRecomponerPortafolioNuevo , String valorRecomponerNuevo)
+                            public void imprimirRecomponer(conexionDB x , PrintWriter respuesta , String emailRecomponer , String nitRecomponerPortafolio, String valorRecomponer, String portafolioRecomponer , String nitRecomponerPortafolioNuevo , String valorRecomponerNuevo)
                             {
                              
                                 

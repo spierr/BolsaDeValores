@@ -13,7 +13,10 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.QueueingConsumer;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,49 +37,7 @@ public class Colas extends Thread{
     }
        return cola;
     }
-    @Override
-    public void run()
-    {
-         try {
-            ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("localhost");
-		factory.setUsername("guest");
-		factory.setPassword("admin123");
-		Connection connection = factory.newConnection();
-		Channel channel = connection.createChannel();
-		channel.queueDeclare("CF", false, false, false, null);
-		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-		QueueingConsumer consumer = new QueueingConsumer(channel);
-		channel.basicConsume("CF", true, consumer);
-		while (true) {
-			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-			String message = new String(delivery.getBody());
-			System.out.println(" [x] Received '" + message + "'");
-                        String[] resp= message.split(";");
-                        String p=resp[0];
-                        if(p.equals("Q1"))
-                        {
-                           pregunta1(resp[1]); 
-                        }
-                        if(p.equals("Q2"))
-                        {
-                            pregunta2(resp[1]); 
-                        }
-                        if(p.equals("Q3"))
-                        {
-                            pregunta3(resp[1]); 
-                        }
-                        if(p.equals("Q4"))
-                        {
-                            pregunta4(resp[1]); 
-                        }
-                        
-		}
-        } catch (Exception e) {
-             System.out.println("Error reciviendo ");
-             e.printStackTrace();
-        }
-    }       
+      
 
     private void pregunta1(String resp) {
          conexionDB x= new conexionDB();
@@ -114,7 +75,27 @@ public class Colas extends Thread{
     }
 
     private void pregunta3(String resp) {
-//        Consultas.consultarMovimientosDeValores1(null, FECHA1, FECHA2, NOMVALOR, FECHA2, FECHA2, FECHA2);  
+        try {
+            String r[]= resp.split(resp);
+            for (int i = 0; i < r.length; i++) {
+                if (r[i]=="null")
+                    r[i]=null;
+            }
+            conexionDB x = new conexionDB();
+            ResultSet respuesta= Consultas.consultarMovimientosDeValores1(x, r[3],r[4], r[0], null, r[1], r[2]);
+            String enviar = "R3;";
+            int i = 0;
+            while (respuesta.next()) {
+                if(i!=0){
+                    enviar+="|";
+                }
+               // enviar 
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Colas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 
     private void pregunta4(String resp) {
@@ -239,6 +220,49 @@ public class Colas extends Thread{
         } 
     }
     
+     @Override
+    public void run()
+    {
+         try {
+            ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("localhost");
+		factory.setUsername("guest");
+		factory.setPassword("admin123");
+		Connection connection = factory.newConnection();
+		Channel channel = connection.createChannel();
+		channel.queueDeclare("CF", false, false, false, null);
+		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+		QueueingConsumer consumer = new QueueingConsumer(channel);
+		channel.basicConsume("CF", true, consumer);
+		while (true) {
+			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+			String message = new String(delivery.getBody());
+			System.out.println(" [x] Received '" + message + "'");
+                        String[] resp= message.split(";");
+                        String p=resp[0];
+                        if(p.equals("Q1"))
+                        {
+                           pregunta1(resp[1]); 
+                        }
+                        if(p.equals("Q2"))
+                        {
+                            pregunta2(resp[1]); 
+                        }
+                        if(p.equals("Q3"))
+                        {
+                            pregunta3(resp[1]); 
+                        }
+                        if(p.equals("Q4"))
+                        {
+                            pregunta4(resp[1]); 
+                        }
+                        
+		}
+        } catch (Exception e) {
+             System.out.println("Error reciviendo ");
+             e.printStackTrace();
+        }
+    }    
     
     
 }
