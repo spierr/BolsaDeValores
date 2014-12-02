@@ -79,6 +79,11 @@ public class Colas extends Thread{
     }       
 
     private void pregunta1(String resp) {
+         conexionDB x= new conexionDB();
+        x.setAutoCommit(false);
+        ResultSet r = x.consultar("");
+        
+        
    }
 
     private void pregunta2(String resp) {
@@ -115,17 +120,20 @@ public class Colas extends Thread{
     }
     //este es el metodo indio del split del boolean y el numero
     public String recomponerPortafolio(String EMAILINVER, int IDPORTAFOLIO, ArrayList<ValoresDeInversionistas> valores) {
-        conexionDB x= new conexionDB();
-        x.setAutoCommit(false);
-        ResultSet r = x.consultar("");
+        String pregunta= "Q1;"+EMAILINVER+":"+IDPORTAFOLIO+":";
+        for (int i = 0; i < valores.size(); i++) {
+            if(i!=0){
+                pregunta+="|";
+            }
+            pregunta+=valores.get(i).getNomValor()+","+valores.get(i).getNitValor();
+        }
         
-        
-        return null;
+        return reciver(pregunta).split(";")[1];
     }
 
     public String retirarIntermediario(String emailIntermediario) {
          
-                return null;
+         return reciver("Q2;"+emailIntermediario).split(";")[1];
     }
 
     public ArrayList<ValoresDeInversionistas> consultarMovimiento(String NOMVALOR, int RENTABILIDAD, String EMAILCOMPRADOR, String FECHA1, String FECHA2) {
