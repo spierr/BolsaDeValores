@@ -24,6 +24,16 @@ public class ValoresDeInversionistas
     private String nomValor;
     private int cantidad;
    
+     public ValoresDeInversionistas()
+    {}
+
+    public void setNitValor(String nitValor) {
+        this.nitValor = nitValor;
+    }
+
+    public void setNomValor(String nomValor) {
+        this.nomValor = nomValor;
+    }
     public ValoresDeInversionistas(String email, long nitValor,String nomValor) throws SQLException 
     {
         conexionDB x = new conexionDB();

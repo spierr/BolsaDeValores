@@ -139,12 +139,31 @@ public class Colas extends Thread{
 
     public ArrayList<ValoresDeInversionistas> consultarMovimiento(String NOMVALOR, int RENTABILIDAD, String EMAILCOMPRADOR, String FECHA1, String FECHA2) {
         
-        return null;
+        String resp[]= reciver("Q3;"+NOMVALOR+":"+RENTABILIDAD+":"+EMAILCOMPRADOR+":"+FECHA1+":"+FECHA2).split(";")[1].split("|");
+        ArrayList<ValoresDeInversionistas> r= new ArrayList<>();
+        for (int i = 0; i < resp.length; i++) {
+            String temp[] = resp[i].split(",");
+            ValoresDeInversionistas v= new ValoresDeInversionistas();
+            v.setNitValor(temp[1]);
+            v.setNomValor(temp[0]);
+            r.add(v);
+        }
+        
+       return r;
     }
 
     public ArrayList<ValoresDeInversionistas> valoresMasDinamicos(String FECHA1, String FECHA2) {
-       String resp= reciver("");
-       return null;
+       String resp[]= reciver("Q4;"+FECHA1+":"+FECHA2).split(";")[1].split("|");
+        ArrayList<ValoresDeInversionistas> r= new ArrayList<>();
+        for (int i = 0; i < resp.length; i++) {
+            String temp[] = resp[i].split(",");
+            ValoresDeInversionistas v= new ValoresDeInversionistas();
+            v.setNitValor(temp[1]);
+            v.setNomValor(temp[0]);
+            r.add(v);
+        }
+        
+       return r;
     }
     
   
