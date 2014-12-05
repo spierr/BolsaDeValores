@@ -42,7 +42,38 @@ public class Colas extends Thread{
     private void pregunta1(String resp) {
          conexionDB x= new conexionDB();
         x.setAutoCommit(false);
-        ResultSet r = x.consultar("");
+        String[] parametros = resp.split(":");
+        String emailInver= parametros[0]; 
+        String idPortafolio= parametros[1];
+        String tipoValor= parametros[2];
+        String[] valores= parametros[3].split("|");
+        ResultSet r = x.consultar("SELECT * FROM VALORES_DE_INVERSIONISTAS WHERE EMAIL = '"+emailInver+"' AND "
+                + "ID_PORTAFOLIO = "+idPortafolio+" AND NOM_VALOR = '"+tipoValor+"'");
+        ResultSet max = x.consultar("SELECT MAX(ID) FROM OPERACIONES_EN_ESPERA_SEC ");
+        
+        
+        try {
+            max.next();
+            int count=max.getInt("MAX(ID)");
+            while (r.next()) {
+                count++;
+                x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_SEC (ID, EMAIL_INVER, PORTAFOLIO, SOLICITUD, NOM_VALOR, NIT_VALOR)\n" +
+                        "VALUES ("+count+",'"+emailInver+"', "+idPortafolio+", 'Venta', '"+r.getString("NOM_VALOR")+"','"+r.getString("NIT_VALOR")+"' );");
+            }
+            for (int i = 0; i < valores.length; i++) {
+                count++;
+                String[] actual= valores[i].split(",");
+                String nit= actual[1];
+                String nom= actual[0];
+                 x.actualizarCrear("INSERT INTO OPERACIONES_EN_ESPERA_SEC (ID, EMAIL_INVER, PORTAFOLIO, SOLICITUD, NOM_VALOR, NIT_VALOR)\n" +
+                        "VALUES ("+count+",'"+emailInver+"', "+idPortafolio+", 'Compra', '"+nom+"','"+nit+"' );");
+            
+                sender("R1;true,"+count);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Colas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
         
         
    }
@@ -53,7 +84,7 @@ public class Colas extends Thread{
             String correoEliminar= resp;
                        
                     try {
-                x.actualizarCrear("UPDATE INTERMEDIARIO SET ESTA_ACTIVO = 'No' WHERE EMAIL = '"+correoEliminar+"'");
+                    x.actualizarCrear("UPDATE INTERMEDIARIO SET ESTA_ACTIVO = 'No' WHERE EMAIL = '"+correoEliminar+"'");
                     ResultSet n = x.consultar("SELECT * FROM INTERMEDIARIO WHERE ESTA_ACTIVO='Si'");
                     String correoNuevo= n.getNString("EMAIL");
                     x.actualizarCrear("UPDATE OPERACIONES_EN_ESPERA_PRIM SET EMAIL_INTERMEDIARIO = '"+correoNuevo+"' WHERE EMAIL_INTERMEDIARIO = '"+correoEliminar+"'");
@@ -68,6 +99,7 @@ public class Colas extends Thread{
                     sender("R2;"+correoNuevo);
                     
         } catch (Exception e) {
+            sender("R2;false");
              System.out.println("Error eliminando ");
              e.printStackTrace();
         }
@@ -89,9 +121,10 @@ public class Colas extends Thread{
                 if(i!=0){
                     enviar+="|";
                 }
-               // enviar 
+               enviar+=respuesta.getString("NOM_VALOR")+","+respuesta.getString("NIT_VALOR");
                 
             }
+            sender(enviar);
         } catch (SQLException ex) {
             Logger.getLogger(Colas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,6 +132,28 @@ public class Colas extends Thread{
     }
 
     private void pregunta4(String resp) {
+       try {
+            String r[]= resp.split(resp);
+            for (int i = 0; i < r.length; i++) {
+                if (r[i]=="null")
+                    r[i]=null;
+            }
+            conexionDB x = new conexionDB();
+            ResultSet respuesta= Consultas.darValoresDinamicos(x, resp.split(":")[1], resp.split(":")[0]);
+         String enviar = "R3;";
+            int i = 0;
+            while (respuesta.next()) {
+                if(i!=0){
+                    enviar+="|";
+                }
+               enviar+=respuesta.getString("NOM_VALOR")+","+respuesta.getString("NIT_VALOR");
+                
+            }
+            sender(enviar);
+        } catch (SQLException ex) {
+            Logger.getLogger(Colas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     //este es el metodo indio del split del boolean y el numero
     public String recomponerPortafolio(String EMAILINVER, int IDPORTAFOLIO, ArrayList<ValoresDeInversionistas> valores) {
